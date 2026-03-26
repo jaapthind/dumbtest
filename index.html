@@ -1,8 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Dumbness Test — Ultra Mega Deluxe</title>
+  <title>Dumbness Test — Ultra Mega Deluxe Extended</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     :root{
@@ -17,7 +18,7 @@
       --success:#4ade80;
       --danger:#f97373;
       --gold:#fbbf24;
-      --white: #eaf6ff;
+      --white:#eaf6ff;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body,#app{height:100%}
@@ -31,49 +32,49 @@
     }
     #app{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:20px}
     .hidden{display:none !important}
-    /* Intro cinematic */
-    #intro{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:80;background:linear-gradient(180deg,rgba(2,6,23,0.98),rgba(0,0,0,0.995));overflow:hidden}
+    #intro{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:90;background:linear-gradient(180deg,rgba(2,6,23,0.98),rgba(0,0,0,0.995));overflow:hidden}
     .cinematic-bar{position:absolute;left:0;right:0;height:9%;background:linear-gradient(90deg,rgba(0,0,0,0.7),rgba(0,0,0,0.25));transform:translateY(-140%);animation:cinematicIn 0.9s ease-out forwards}
     .cinematic-bar.top{top:0;animation-delay:0.06s}
     .cinematic-bar.bottom{bottom:0;animation-delay:0.12s}
     @keyframes cinematicIn{to{transform:translateY(0)}}
-    #intro-stage{width:100%;max-width:1600px;display:flex;align-items:center;justify-content:center;gap:28px;position:relative;padding:40px;pointer-events:none}
-    #intro-logo{width:320px;height:320px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(from 120deg, rgba(34,211,238,0.12), rgba(168,85,247,0.12), rgba(249,115,22,0.12));box-shadow:0 40px 120px rgba(0,0,0,0.7),inset 0 4px 18px rgba(255,255,255,0.02);transform:scale(0.6) rotate(-12deg);opacity:0;animation:introLogoPop 1.2s cubic-bezier(.2,.9,.3,1) forwards 0.6s;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
-    #intro-logo .logo-core{width:260px;height:260px;border-radius:50%;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021025;font-weight:900;font-size:44px;letter-spacing:0.12em;text-transform:uppercase;box-shadow:0 16px 60px rgba(168,85,247,0.18);transform:scale(0.85);transition:transform 0.25s ease}
-    #intro-logo:hover .logo-core{transform:scale(0.94)}
+    #intro-stage{width:100%;max-width:1800px;display:flex;align-items:center;justify-content:center;gap:28px;position:relative;padding:40px;pointer-events:none}
+    #intro-logo{width:360px;height:360px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(from 120deg, rgba(34,211,238,0.12), rgba(168,85,247,0.12), rgba(249,115,22,0.12));box-shadow:0 40px 140px rgba(0,0,0,0.7),inset 0 4px 18px rgba(255,255,255,0.02);transform:scale(0.6) rotate(-12deg);opacity:0;animation:introLogoPop 1.2s cubic-bezier(.2,.9,.3,1) forwards 0.6s;border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
+    #intro-logo .logo-core{width:300px;height:300px;border-radius:50%;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021025;font-weight:900;font-size:48px;letter-spacing:0.12em;text-transform:uppercase;box-shadow:0 18px 80px rgba(168,85,247,0.18);transform:scale(0.85);transition:transform 0.25s ease}
+    #intro-logo:hover .logo-core{transform:scale(0.96)}
     @keyframes introLogoPop{0%{opacity:0;transform:scale(0.6) rotate(-12deg)}60%{opacity:1;transform:scale(1.08) rotate(6deg)}100%{opacity:1;transform:scale(1) rotate(0deg)}}
-    #intro-title{font-size:72px;font-weight:900;letter-spacing:0.18em;color:var(--white);text-transform:uppercase;opacity:0;transform:translateY(18px) scale(0.98);animation:introTitleIn 1s cubic-bezier(.2,.9,.3,1) forwards 0.9s;text-shadow:0 12px 60px rgba(34,211,238,0.06)}
+    #intro-title{font-size:84px;font-weight:900;letter-spacing:0.18em;color:var(--white);text-transform:uppercase;opacity:0;transform:translateY(18px) scale(0.98);animation:introTitleIn 1s cubic-bezier(.2,.9,.3,1) forwards 0.9s;text-shadow:0 14px 80px rgba(34,211,238,0.06)}
     @keyframes introTitleIn{to{opacity:1;transform:translateY(0) scale(1)}}
     #intro-subtitle{font-size:16px;color:var(--muted);opacity:0;transform:translateY(10px);animation:introSubIn 0.9s ease forwards 1.1s;max-width:920px;text-align:center}
     @keyframes introSubIn{to{opacity:1;transform:translateY(0)}}
-    .orb{position:absolute;border-radius:50%;filter:blur(20px);opacity:0.9;mix-blend-mode:screen;transform:translate3d(0,0,0)}
-    .orb.o1{width:680px;height:680px;background:radial-gradient(circle at 30% 30%, rgba(34,211,238,0.98), rgba(34,211,238,0.12) 30%, transparent 60%);left:-18%;top:-14%;animation:orbFloat1 10s ease-in-out infinite}
-    .orb.o2{width:520px;height:520px;background:radial-gradient(circle at 60% 40%, rgba(168,85,247,0.98), rgba(168,85,247,0.12) 30%, transparent 60%);right:-12%;bottom:12%;animation:orbFloat2 12s ease-in-out infinite}
-    .orb.o3{width:420px;height:420px;background:radial-gradient(circle at 50% 50%, rgba(249,115,22,0.98), rgba(249,115,22,0.12) 30%, transparent 60%);left:40%;top:60%;animation:orbFloat3 9s ease-in-out infinite}
-    .orb.o4{width:260px;height:260px;background:radial-gradient(circle at 50% 50%, rgba(34,211,238,0.7), rgba(34,211,238,0.06) 30%, transparent 60%);left:20%;bottom:20%;animation:orbFloat4 8s ease-in-out infinite}
-    .orb.o5{width:220px;height:220px;background:radial-gradient(circle at 50% 50%, rgba(168,85,247,0.7), rgba(168,85,247,0.06) 30%, transparent 60%);right:30%;top:20%;animation:orbFloat5 14s ease-in-out infinite}
-    @keyframes orbFloat1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,-60px) scale(1.08)}100%{transform:translate(0,0) scale(1)}}
-    @keyframes orbFloat2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,40px) scale(1.1)}100%{transform:translate(0,0) scale(1)}}
-    @keyframes orbFloat3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,80px) scale(0.95)}100%{transform:translate(0,0) scale(1)}}
-    @keyframes orbFloat4{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,-40px) scale(1.03)}100%{transform:translate(0,0) scale(1)}}
-    @keyframes orbFloat5{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
-    .ribbon{position:absolute;width:2000px;height:320px;left:50%;top:6%;transform:translateX(-50%) translateY(-40px) rotate(-6deg);background:linear-gradient(90deg,rgba(34,211,238,0.06),rgba(168,85,247,0.06));filter:blur(20px);opacity:0.6;animation:ribbonSlide 12s linear infinite;pointer-events:none}
-    @keyframes ribbonSlide{0%{transform:translateX(-50%) translateY(-40px) rotate(-6deg)}50%{transform:translateX(-50%) translateY(40px) rotate(2deg)}100%{transform:translateX(-50%) translateY(-40px) rotate(-6deg)}}
+    .orb{position:absolute;border-radius:50%;filter:blur(22px);opacity:0.95;mix-blend-mode:screen;transform:translate3d(0,0,0)}
+    .orb.o1{width:820px;height:820px;background:radial-gradient(circle at 30% 30%, rgba(34,211,238,0.98), rgba(34,211,238,0.12) 30%, transparent 60%);left:-22%;top:-18%;animation:orbFloat1 12s ease-in-out infinite}
+    .orb.o2{width:620px;height:620px;background:radial-gradient(circle at 60% 40%, rgba(168,85,247,0.98), rgba(168,85,247,0.12) 30%, transparent 60%);right:-16%;bottom:16%;animation:orbFloat2 14s ease-in-out infinite}
+    .orb.o3{width:520px;height:520px;background:radial-gradient(circle at 50% 50%, rgba(249,115,22,0.98), rgba(249,115,22,0.12) 30%, transparent 60%);left:40%;top:60%;animation:orbFloat3 11s ease-in-out infinite}
+    .orb.o4{width:320px;height:320px;background:radial-gradient(circle at 50% 50%, rgba(34,211,238,0.7), rgba(34,211,238,0.06) 30%, transparent 60%);left:20%;bottom:20%;animation:orbFloat4 10s ease-in-out infinite}
+    .orb.o5{width:280px;height:280px;background:radial-gradient(circle at 50% 50%, rgba(168,85,247,0.7), rgba(168,85,247,0.06) 30%, transparent 60%);right:30%;top:20%;animation:orbFloat5 16s ease-in-out infinite}
+    @keyframes orbFloat1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(100px,-80px) scale(1.12)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes orbFloat2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-80px,60px) scale(1.14)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes orbFloat3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,100px) scale(0.95)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes orbFloat4{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,-60px) scale(1.05)}100%{transform:translate(0,0) scale(1)}}
+    @keyframes orbFloat5{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-40px) scale(1.08)}100%{transform:translate(0,0) scale(1)}}
+    .ribbon{position:absolute;width:2400px;height:360px;left:50%;top:6%;transform:translateX(-50%) translateY(-40px) rotate(-6deg);background:linear-gradient(90deg,rgba(34,211,238,0.06),rgba(168,85,247,0.06));filter:blur(22px);opacity:0.6;animation:ribbonSlide 14s linear infinite;pointer-events:none}
+    @keyframes ribbonSlide{0%{transform:translateX(-50%) translateY(-40px) rotate(-6deg)}50%{transform:translateX(-50%) translateY(60px) rotate(2deg)}100%{transform:translateX(-50%) translateY(-40px) rotate(-6deg)}}
     .glow-line{position:absolute;height:2px;background:linear-gradient(90deg,var(--accent1),var(--accent2));opacity:0.12;left:0;right:0}
-    .glow-line.l1{top:10%}
-    .glow-line.l2{top:20%}
-    .glow-line.l3{top:30%}
-    .glow-line.l4{top:40%}
-    .glow-line.l5{top:50%}
-    .glow-line.l6{top:60%}
-    .glow-line.l7{top:70%}
-    .glow-line.l8{top:80%}
-    .glow-line.l9{top:90%}
+    .glow-line.l1{top:8%}
+    .glow-line.l2{top:16%}
+    .glow-line.l3{top:24%}
+    .glow-line.l4{top:32%}
+    .glow-line.l5{top:40%}
+    .glow-line.l6{top:48%}
+    .glow-line.l7{top:56%}
+    .glow-line.l8{top:64%}
+    .glow-line.l9{top:72%}
+    .glow-line.l10{top:80%}
     .scan{position:absolute;left:-20%;top:-40%;width:140%;height:200%;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.02));transform:rotate(-18deg);mix-blend-mode:overlay;opacity:0.06;animation:scanMove 6s linear infinite;pointer-events:none}
     @keyframes scanMove{0%{transform:translateY(-20%) rotate(-18deg)}100%{transform:translateY(20%) rotate(-18deg)}}
     .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-    .particle{position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.06);filter:blur(1px);animation:particleFloat 14s linear infinite;opacity:0.9}
-    @keyframes particleFloat{0%{transform:translateY(0) translateX(0) scale(1);opacity:0.9}50%{transform:translateY(-60px) translateX(30px) scale(1.2);opacity:0.6}100%{transform:translateY(0) translateX(0) scale(1);opacity:0.9}}
+    .particle{position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.06);filter:blur(1px);animation:particleFloat 16s linear infinite;opacity:0.9}
+    @keyframes particleFloat{0%{transform:translateY(0) translateX(0) scale(1);opacity:0.9}50%{transform:translateY(-80px) translateX(40px) scale(1.2);opacity:0.6}100%{transform:translateY(0) translateX(0) scale(1);opacity:0.9}}
     .p1{left:6%;top:12%;animation-delay:0s}
     .p2{left:12%;top:22%;animation-delay:0.4s}
     .p3{left:18%;top:32%;animation-delay:0.8s}
@@ -110,7 +111,7 @@
     .p34{left:72%;top:88%;animation-delay:13.2s}
     .p35{left:82%;top:88%;animation-delay:13.6s}
     .p36{left:92%;top:88%;animation-delay:14s}
-    .countdown-ring{position:absolute;width:420px;height:420px;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transform:scale(0.8);animation:countdownIn 0.9s ease forwards 1.2s}
+    .countdown-ring{position:absolute;width:520px;height:520px;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transform:scale(0.8);animation:countdownIn 0.9s ease forwards 1.2s}
     .countdown-ring svg{width:100%;height:100%}
     @keyframes countdownIn{to{opacity:1;transform:scale(1)}}
     @keyframes ringPulse{0%{filter:drop-shadow(0 0 0 rgba(34,211,238,0.0))}10%{filter:drop-shadow(0 0 18px rgba(34,211,238,0.12))}20%{filter:drop-shadow(0 0 28px rgba(168,85,247,0.12))}30%{filter:drop-shadow(0 0 36px rgba(249,115,22,0.12))}40%{filter:drop-shadow(0 0 24px rgba(34,211,238,0.08))}50%{filter:drop-shadow(0 0 12px rgba(168,85,247,0.06))}60%{filter:drop-shadow(0 0 24px rgba(249,115,22,0.08))}70%{filter:drop-shadow(0 0 36px rgba(34,211,238,0.12))}80%{filter:drop-shadow(0 0 28px rgba(168,85,247,0.12))}90%{filter:drop-shadow(0 0 18px rgba(249,115,22,0.08))}100%{filter:drop-shadow(0 0 0 rgba(34,211,238,0.0))}}
@@ -122,20 +123,18 @@
     .intro-lines .line.l4{animation-delay:1.75s}
     .intro-lines .line.l5{animation-delay:1.9s}
     @keyframes lineIn{to{opacity:1;transform:translateY(0)}}
-    /* flashing DUMB elements */
-    .flash-dumb{position:absolute;pointer-events:none;font-weight:900;color:rgba(255,255,255,0.06);font-size:120px;letter-spacing:0.12em;transform:translate(-50%,-50%) rotate(-8deg);text-transform:uppercase;mix-blend-mode:screen;filter:blur(0.6px)}
-    .flash-dumb.f1{left:10%;top:20%;animation:flashMove1 10s linear infinite}
-    .flash-dumb.f2{left:80%;top:30%;animation:flashMove2 11s linear infinite}
-    .flash-dumb.f3{left:50%;top:70%;animation:flashMove3 9s linear infinite}
-    .flash-dumb.f4{left:30%;top:50%;animation:flashMove4 12s linear infinite}
-    .flash-dumb.f5{left:70%;top:80%;animation:flashMove5 13s linear infinite}
-    @keyframes flashMove1{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}10%{opacity:0.18;transform:translate(-50%,-50%) rotate(-6deg) scale(1.08)}20%{opacity:0.06;transform:translate(-50%,-50%) rotate(-10deg) scale(0.98)}40%{opacity:0.22;transform:translate(-50%,-50%) rotate(-4deg) scale(1.12)}60%{opacity:0.06;transform:translate(-50%,-50%) rotate(-12deg) scale(0.95)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}}
-    @keyframes flashMove2{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(6deg) scale(1)}15%{opacity:0.2;transform:translate(-50%,-50%) rotate(8deg) scale(1.14)}30%{opacity:0.06;transform:translate(-50%,-50%) rotate(4deg) scale(0.96)}50%{opacity:0.22;transform:translate(-50%,-50%) rotate(10deg) scale(1.18)}75%{opacity:0.06;transform:translate(-50%,-50%) rotate(2deg) scale(0.9)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(6deg) scale(1)}}
-    @keyframes flashMove3{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(-2deg) scale(1)}20%{opacity:0.22;transform:translate(-50%,-50%) rotate(0deg) scale(1.2)}40%{opacity:0.06;transform:translate(-50%,-50%) rotate(-6deg) scale(0.9)}60%{opacity:0.18;transform:translate(-50%,-50%) rotate(2deg) scale(1.08)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(-2deg) scale(1)}}
-    @keyframes flashMove4{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(10deg) scale(1)}25%{opacity:0.2;transform:translate(-50%,-50%) rotate(12deg) scale(1.16)}50%{opacity:0.06;transform:translate(-50%,-50%) rotate(8deg) scale(0.92)}75%{opacity:0.22;transform:translate(-50%,-50%) rotate(14deg) scale(1.2)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(10deg) scale(1)}}
-    @keyframes flashMove5{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}30%{opacity:0.22;transform:translate(-50%,-50%) rotate(-10deg) scale(1.22)}60%{opacity:0.06;transform:translate(-50%,-50%) rotate(-16deg) scale(0.88)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}}
-    /* Game UI */
-    #game{position:relative;width:100%;max-width:1200px;margin:0 auto;z-index:20;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:flex-start;padding:28px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));box-shadow:0 30px 80px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02);min-height:84vh;overflow:hidden}
+    .flash-dumb{position:absolute;pointer-events:none;font-weight:900;color:rgba(255,255,255,0.06);font-size:140px;letter-spacing:0.12em;transform:translate(-50%,-50%) rotate(-8deg);text-transform:uppercase;mix-blend-mode:screen;filter:blur(0.6px)}
+    .flash-dumb.f1{left:6%;top:18%;animation:flashMove1 20s linear infinite}
+    .flash-dumb.f2{left:82%;top:28%;animation:flashMove2 22s linear infinite}
+    .flash-dumb.f3{left:50%;top:72%;animation:flashMove3 18s linear infinite}
+    .flash-dumb.f4{left:28%;top:52%;animation:flashMove4 24s linear infinite}
+    .flash-dumb.f5{left:72%;top:82%;animation:flashMove5 26s linear infinite}
+    @keyframes flashMove1{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}10%{opacity:0.28;transform:translate(-50%,-50%) rotate(-6deg) scale(1.18)}20%{opacity:0.06;transform:translate(-50%,-50%) rotate(-10deg) scale(0.98)}40%{opacity:0.32;transform:translate(-50%,-50%) rotate(-4deg) scale(1.22)}60%{opacity:0.06;transform:translate(-50%,-50%) rotate(-12deg) scale(0.95)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}}
+    @keyframes flashMove2{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(6deg) scale(1)}15%{opacity:0.32;transform:translate(-50%,-50%) rotate(8deg) scale(1.24)}30%{opacity:0.06;transform:translate(-50%,-50%) rotate(4deg) scale(0.96)}50%{opacity:0.34;transform:translate(-50%,-50%) rotate(10deg) scale(1.28)}75%{opacity:0.06;transform:translate(-50%,-50%) rotate(2deg) scale(0.9)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(6deg) scale(1)}}
+    @keyframes flashMove3{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(-2deg) scale(1)}20%{opacity:0.34;transform:translate(-50%,-50%) rotate(0deg) scale(1.3)}40%{opacity:0.06;transform:translate(-50%,-50%) rotate(-6deg) scale(0.9)}60%{opacity:0.28;transform:translate(-50%,-50%) rotate(2deg) scale(1.18)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(-2deg) scale(1)}}
+    @keyframes flashMove4{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(10deg) scale(1)}25%{opacity:0.34;transform:translate(-50%,-50%) rotate(12deg) scale(1.26)}50%{opacity:0.06;transform:translate(-50%,-50%) rotate(8deg) scale(0.92)}75%{opacity:0.36;transform:translate(-50%,-50%) rotate(14deg) scale(1.3)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(10deg) scale(1)}}
+    @keyframes flashMove5{0%{opacity:0.06;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}30%{opacity:0.36;transform:translate(-50%,-50%) rotate(-10deg) scale(1.32)}60%{opacity:0.06;transform:translate(-50%,-50%) rotate(-16deg) scale(0.88)}100%{opacity:0.06;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}}
+    #game{position:relative;width:100%;max-width:1300px;margin:0 auto;z-index:20;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:flex-start;padding:28px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));box-shadow:0 30px 80px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02);min-height:84vh;overflow:hidden}
     #header{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
     #title{font-size:20px;font-weight:900;letter-spacing:0.12em;color:var(--white);text-transform:uppercase}
     #meta{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px}
@@ -153,6 +152,9 @@
     #feedback{min-height:22px;font-size:13px;color:var(--muted);margin-top:6px}
     .feedback-correct{color:var(--success)}
     .feedback-wrong{color:var(--danger)}
+        #name-section {
+        display: none;
+    }
     #progress-bar-wrapper{width:100%;margin-top:8px}
     #progress-bar{width:100%;height:12px;border-radius:999px;background:#0b1220;border:1px solid rgba(255,255,255,0.02);overflow:hidden}
     #progress-fill{width:0%;height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width 0.35s ease}
@@ -165,8 +167,7 @@
     #name-input{padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);outline:none}
     #save-name-btn{padding:8px 12px;border-radius:999px;border:none;background:linear-gradient(135deg,var(--accent2),var(--accent3));color:#021025;font-weight:800;cursor:pointer}
     #recent-dumbs{margin-top:12px;color:var(--muted);font-size:13px}
-    @media (max-width:900px){#intro-logo{width:220px;height:220px}#intro-title{font-size:36px}#game{padding:16px}.color-option{min-width:100px;height:80px}}
-    /* extra repeated rules to bulk file size */
+    @media (max-width:900px){#intro-logo{width:260px;height:260px}#intro-title{font-size:36px}#game{padding:16px}.color-option{min-width:100px;height:80px}}
     .v1{opacity:0.02}.v2{opacity:0.03}.v3{opacity:0.04}.v4{opacity:0.05}.v5{opacity:0.06}.v6{opacity:0.07}.v7{opacity:0.08}.v8{opacity:0.09}.v9{opacity:0.1}
     .b1{border-radius:4px}.b2{border-radius:6px}.b3{border-radius:8px}.b4{border-radius:10px}.b5{border-radius:12px}
     .s1{box-shadow:0 6px 18px rgba(0,0,0,0.4)}.s2{box-shadow:0 8px 24px rgba(0,0,0,0.45)}.s3{box-shadow:0 10px 30px rgba(0,0,0,0.5)}
@@ -175,6 +176,12 @@
     .padded{padding:12px}.padded-lg{padding:20px}.padded-xl{padding:28px}
     .flex{display:flex}.col{flex-direction:column}.row{flex-direction:row}.center{align-items:center;justify-content:center}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono","Courier New",monospace}
+    /* extra decorative rules */
+    .shadow-a{box-shadow:0 6px 18px rgba(34,211,238,0.06)}.shadow-b{box-shadow:0 8px 24px rgba(168,85,247,0.06)}.shadow-c{box-shadow:0 10px 30px rgba(249,115,22,0.06)}
+    .border-a{border:1px solid rgba(255,255,255,0.02)}.border-b{border:1px dashed rgba(255,255,255,0.01)}
+    .rotate-1{transform:rotate(-2deg)}.rotate-2{transform:rotate(2deg)}.rotate-3{transform:rotate(-6deg)}
+    .scale-1{transform:scale(1.02)}.scale-2{transform:scale(0.98)}
+    .opacity-10{opacity:0.1}.opacity-20{opacity:0.2}.opacity-30{opacity:0.3}
   </style>
 </head>
 <body>
@@ -221,6 +228,7 @@
         <div class="glow-line l7"></div>
         <div class="glow-line l8"></div>
         <div class="glow-line l9"></div>
+        <div class="glow-line l10"></div>
         <div class="scan"></div>
         <div class="particles" aria-hidden="true">
           <div class="particle p1"></div>
@@ -335,8 +343,8 @@
   </div>
 
   <script>
-    const GOOGLE_SHEET_ENDPOINT = ''; // set your Google Apps Script POST URL here
-    const GOOGLE_SHEET_FETCH = ''; // optional GET endpoint to fetch saved names
+    const GOOGLE_SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbztG46W6gxIHWXIR2qU0H6OntczBdb2X691ZmD6l3inVil39S_bRv0BzpD_z38d9VNzMg/exec';
+    const GOOGLE_SHEET_FETCH = 'https://script.google.com/macros/s/AKfycbztG46W6gxIHWXIR2qU0H6OntczBdb2X691ZmD6l3inVil39S_bRv0BzpD_z38d9VNzMg/exec';
 
     const introEl = document.getElementById('intro');
     const gameEl = document.getElementById('game');
@@ -384,12 +392,14 @@
         {r:200,g:120,b:80},
         {r:120,g:200,b:160},
         {r:180,g:80,b:200},
-        {r:80,g:180,b:120}
+        {r:80,g:180,b:120},
+        {r:220,g:140,b:60},
+        {r:140,g:220,b:180}
       ];
       const base=baseColors[randInt(0,baseColors.length-1)];
       const optionsCount=4;
       const diffIndex=randInt(0,optionsCount-1);
-      const difficultyOffset=Math.max(3,110-level*14);
+      const difficultyOffset=Math.max(3,120-level*16);
       const offset=difficultyOffset;
       const options=[];
       for(let i=0;i<optionsCount;i++){
@@ -401,9 +411,9 @@
           options.push(diffColor);
         } else {
           const noise={r:base.r,g:base.g,b:base.b};
-          noise.r=clamp(noise.r+randInt(-4,4),0,255);
-          noise.g=clamp(noise.g+randInt(-4,4),0,255);
-          noise.b=clamp(noise.b+randInt(-4,4),0,255);
+          noise.r=clamp(noise.r+randInt(-5,5),0,255);
+          noise.g=clamp(noise.g+randInt(-5,5),0,255);
+          noise.b=clamp(noise.b+randInt(-5,5),0,255);
           options.push(noise);
         }
       }
@@ -430,7 +440,12 @@
       {text:'What is 2 + 2?',number:'',answer:'4',extra:''},
       {text:'Type the word "mirror" without the first and last letters.',number:'',answer:'irro',extra:''},
       {text:'What number is displayed on the screen?',number:'2718',answer:'2718',extra:''},
-      {text:'Type the word "openai" in lowercase.',number:'',answer:'openai',extra:''}
+      {text:'Type the word "openai" in lowercase.',number:'',answer:'openai',extra:''},
+      {text:'Type the word "alpha" then "beta" separated by a space.',number:'',answer:'alpha beta',extra:''},
+      {text:'What is 11 - 3 + 2?',number:'',answer:'10',extra:''},
+      {text:'Type the third letter of the word "javascript".',number:'',answer:'v',extra:''},
+      {text:'What number is displayed on the screen?',number:'999',answer:'999',extra:''},
+      {text:'Type the first and last letters of "dumbness".',number:'',answer:'ds',extra:''}
     ];
 
     (function buildQuestions(){
@@ -527,7 +542,11 @@
       if(isCorrect){score+=5;feedbackEl.textContent='Correct. Your eyes are functioning.';feedbackEl.className='feedback-correct'}
       else{wrongCount++;metaWrongEl.textContent=wrongCount;feedbackEl.textContent='Wrong. Maybe your monitor is lying to you.';feedbackEl.className='feedback-wrong'}
       metaScoreEl.textContent=score;
-      if(wrongCount>=maxWrong){setTimeout(()=>{endGame(true)},700);return}
+            if (wrongCount === maxWrong) {
+          showNamePrompt();   // <-- NEW FUNCTION
+          return;
+      }
+
       setTimeout(()=>{currentQuestionIndex++;showQuestion()},900);
     }
 
@@ -586,11 +605,18 @@
       if(e.key==='Escape'){if(!finalEl.classList.contains('hidden')){restartBtnEl.click()}}
     });
 
-    saveNameBtnEl.addEventListener('click',()=>{
-      const name = (nameInputEl.value || '').trim();
-      if(!name) return;
-      saveNameToCloud(name);
+        saveNameBtnEl.addEventListener('click', () => {
+        const name = nameInputEl.value.trim();
+        if (!name) return;
+    
+        saveNameToCloud(name);
+    
+        // After saving, end the game normally
+        setTimeout(() => {
+            endGame(true);
+        }, 500);
     });
+
 
     function saveNameToCloud(name){
       if(!GOOGLE_SHEET_ENDPOINT) {
@@ -617,7 +643,7 @@
       }
       fetch(GOOGLE_SHEET_FETCH).then(r=>r.json()).then(data=>{
         if(Array.isArray(data) && data.length){
-          recentListEl.textContent = data.slice(0,6).map(x=>x.name).join(', ');
+          recentListEl.textContent = data.slice(0,8).map(x=>x.name).join(', ');
         } else {
           recentListEl.textContent = 'none yet';
         }
@@ -628,7 +654,6 @@
 
     fetchRecentNames();
 
-    // long utility and filler functions to expand file length (functional helpers)
     function noop(){return null}
     function identity(x){return x}
     function alwaysTrue(){return true}
@@ -638,7 +663,7 @@
     function rgbToCssClone(c){return 'rgb('+c.r+','+c.g+','+c.b+')'}
     (function longFillerBlock(){
       const filler=[];
-      for(let i=0;i<600;i++){
+      for(let i=0;i<1200;i++){
         filler.push({id:'f'+i,value:Math.random(),label:'filler-'+i});
       }
       for(let i=0;i<filler.length;i++){
@@ -740,7 +765,7 @@
     function helperY(y){return y}
     function helperZ(z){return z}
     const bigData=[];
-    for(let i=0;i<800;i++){
+    for(let i=0;i<1600;i++){
       bigData.push({i:i,rand:Math.random(),label:'item-'+i,meta:{a:i%7,b:i%13}});
     }
     window.__dumbness_bigdata=bigData;
@@ -759,6 +784,391 @@
     function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
     function formatTime(ms){const s=Math.floor(ms/1000);const m=Math.floor(s/60);const ss=s%60;return m+':'+(ss<10?'0':'')+ss}
     setTimeout(()=>{const focusable=gameEl.querySelector('input,button');if(focusable)focusable.focus()},1200);
+
+    // additional extended helpers and utilities
+    function multiMap(arr,fn){const out=[];for(let i=0;i<arr.length;i++){out.push(fn(arr[i],i))}return out}
+    function deepClone(obj){return JSON.parse(JSON.stringify(obj))}
+    function flatten(arr){return arr.reduce((a,b)=>a.concat(Array.isArray(b)?flatten(b):b),[])}
+    function unique(arr){return Array.from(new Set(arr))}
+    function range(n){const r=[];for(let i=0;i<n;i++)r.push(i);return r}
+    function pad(n,len){let s=String(n);while(s.length<len)s='0'+s;return s}
+    function toTitle(s){return String(s).split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ')}
+    function clampArrayIndex(i,len){return ((i%len)+len)%len}
+    function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)]}
+    function weightedPick(items,weights){let total=weights.reduce((a,b)=>a+b,0);let r=Math.random()*total;for(let i=0;i<items.length;i++){if(r<weights[i])return items[i];r-=weights[i]}return items[items.length-1]}
+    function groupBy(arr,fn){const map={};for(let i=0;i<arr.length;i++){const k=fn(arr[i]);map[k]=map[k]||[];map[k].push(arr[i])}return map}
+    function partition(arr,fn){const a=[],b=[];for(let i=0;i<arr.length;i++){if(fn(arr[i]))a.push(arr[i]);else b.push(arr[i])}return [a,b]}
+    function zip(a,b){const n=Math.min(a.length,b.length);const out=[];for(let i=0;i<n;i++)out.push([a[i],b[i]]);return out}
+    function unzip(z){const a=[],b=[];for(let i=0;i<z.length;i++){a.push(z[i][0]);b.push(z[i][1])}return [a,b]}
+    function debounce(fn,wait){let t;return function(){const args=arguments;clearTimeout(t);t=setTimeout(()=>fn.apply(this,args),wait)}}
+    function throttle(fn,limit){let inThrottle;return function(){const args=arguments;if(!inThrottle){fn.apply(this,args);inThrottle=true;setTimeout(()=>inThrottle=false,limit)}}}
+    function once(fn){let done=false;let res;return function(){if(!done){res=fn.apply(this,arguments);done=true}return res}}
+    function compose(...fns){return function(arg){return fns.reduceRight((v,f)=>f(v),arg)}}
+    function pipe(...fns){return function(arg){return fns.reduce((v,f)=>f(v),arg)}}
+    function tryCatch(fn,catcher){try{return fn()}catch(e){return catcher(e)}}
+    function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+    function fetchJson(url,opts){return fetch(url,opts).then(r=>r.json())}
+    function safeFetch(url,opts){return fetch(url,opts).then(r=>r.ok?r.json():Promise.reject(r.status))}
+    function toQuery(obj){return Object.keys(obj).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(obj[k])).join('&')}
+    function fromQuery(q){const o={};q.replace(/^\?/,'').split('&').forEach(p=>{if(!p) return;const [k,v]=p.split('=');o[decodeURIComponent(k)]=decodeURIComponent(v||'')});return o}
+    function clampNumber(n,min,max){return Math.max(min,Math.min(max,n))}
+    function isNumeric(n){return !isNaN(parseFloat(n)) && isFinite(n)}
+    function isEmpty(v){if(v==null) return true;if(typeof v==='string') return v.trim()==='';if(Array.isArray(v)) return v.length===0; if(typeof v==='object') return Object.keys(v).length===0;return false}
+    function merge(a,b){return Object.assign({},a,b)}
+    function deepMerge(a,b){const out=deepClone(a);for(const k in b){if(b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])) out[k]=deepMerge(out[k]||{},b[k]);else out[k]=b[k]}return out}
+    function pick(obj,keys){const o={};keys.forEach(k=>{if(k in obj) o[k]=obj[k]});return o}
+    function omit(obj,keys){const o=deepClone(obj);keys.forEach(k=>delete o[k]);return o}
+    function mapValues(obj,fn){const o={};for(const k in obj)o[k]=fn(obj[k],k);return o}
+    function mapKeys(obj,fn){const o={};for(const k in obj)o[fn(k)]=obj[k];return o}
+    function invert(obj){const o={};for(const k in obj)o[obj[k]]=k;return o}
+    function rangeStep(start,stop,step){const out=[];for(let v=start;v<=stop;v+=step)out.push(v);return out}
+    function clampArray(arr,minLen){while(arr.length<minLen)arr.push(null);return arr}
+    function ensureArray(v){return Array.isArray(v)?v:[v]}
+    function flattenDepth(arr,depth){if(depth<1) return arr;return arr.reduce((a,b)=>a.concat(Array.isArray(b)?flattenDepth(b,depth-1):b),[])}
+    function chunk(arr,size){const out=[];for(let i=0;i<arr.length;i+=size)out.push(arr.slice(i,i+size));return out}
+    function sum(arr){return arr.reduce((a,b)=>a+b,0)}
+    function avg(arr){return arr.length?sum(arr)/arr.length:0}
+    function median(arr){const s=arr.slice().sort((a,b)=>a-b);const m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2}
+    function mode(arr){const m={};let max=0;let val=null;for(let i=0;i<arr.length;i++){m[arr[i]]=(m[arr[i]]||0)+1;if(m[arr[i]]>max){max=m[arr[i]];val=arr[i]}}return val}
+    function variance(arr){const a=avg(arr);return avg(arr.map(x=>Math.pow(x-a,2)))}
+    function stddev(arr){return Math.sqrt(variance(arr))}
+    function clampToRange(v,min,max){return Math.max(min,Math.min(max,v))}
+    function toFixed(n,dec){return Number(n).toFixed(dec)}
+    function parseNumber(s){const n=parseFloat(s);return isNaN(n)?null:n}
+    function safeJsonParse(s,def){try{return JSON.parse(s)}catch(e){return def}}
+    function safeJsonStringify(o){try{return JSON.stringify(o)}catch(e){return ''}}
+    function nowIso(){return new Date().toISOString()}
+    function uidShort(){return Math.random().toString(36).slice(2,8)}
+    function clampIndex(i,len){return ((i%len)+len)%len}
+    function rotateArray(arr,steps){const n=arr.length;const s=clampIndex(steps,n);return arr.slice(s).concat(arr.slice(0,s))}
+    function reverseString(s){return s.split('').reverse().join('')}
+    function isPalindrome(s){const t=s.replace(/[^a-z0-9]/gi,'').toLowerCase();return t===reverseString(t)}
+    function randomHex(len){let s='';for(let i=0;i<len;i++)s+=Math.floor(Math.random()*16).toString(16);return s}
+    function randomRgb(){return {r:randInt(0,255),g:randInt(0,255),b:randInt(0,255)}}
+    function cssRgb(c){return 'rgb('+c.r+','+c.g+','+c.b+')'}
+    function lighten(c,amt){return {r:clamp(c.r+amt,0,255),g:clamp(c.g+amt,0,255),b:clamp(c.b+amt,0,255)}}
+    function darken(c,amt){return lighten(c,-amt)}
+    function mix(c1,c2,t){return {r:Math.round(c1.r*(1-t)+c2.r*t),g:Math.round(c1.g*(1-t)+c2.g*t),b:Math.round(c1.b*(1-t)+c2.b*t)}}
+    function hexToRgb(hex){const h=hex.replace('#','');return {r:parseInt(h.substring(0,2),16),g:parseInt(h.substring(2,4),16),b:parseInt(h.substring(4,6),16)}}
+    function rgbToHex(c){return '#'+((1<<24)+(c.r<<16)+(c.g<<8)+c.b).toString(16).slice(1)}
+    function clampColorChannel(v){return clamp(Math.round(v),0,255)}
+    function randomChoiceWeighted(choices){const total=choices.reduce((a,b)=>a+b.weight,0);let r=Math.random()*total;for(const c of choices){if(r<c.weight) return c.item; r-=c.weight}return choices[choices.length-1].item}
+    function ensureNumber(n,def){return isNumeric(n)?Number(n):def}
+    function toBoolean(v){if(typeof v==='boolean') return v; if(typeof v==='string') return ['true','1','yes','y'].includes(v.toLowerCase()); return Boolean(v)}
+    function clampWithin(v,min,max){return Math.max(min,Math.min(max,v))}
+    function safeGet(obj,path,def){const parts=path.split('.');let cur=obj;for(const p of parts){if(cur==null) return def;cur=cur[p]}return cur==null?def:cur}
+    function safeSet(obj,path,val){const parts=path.split('.');let cur=obj;for(let i=0;i<parts.length-1;i++){const p=parts[i];if(!(p in cur)) cur[p]={};cur=cur[p]}cur[parts[parts.length-1]]=val;return obj}
+    function clampToArray(arr,idx){return arr[clampIndex(idx,arr.length)]}
+    function ensureString(v){return v==null?'':String(v)}
+    function toLowerTrim(s){return ensureString(s).trim().toLowerCase()}
+    function toUpperTrim(s){return ensureString(s).trim().toUpperCase()}
+    function startsWithIgnoreCase(s,p){return toLowerTrim(s).startsWith(toLowerTrim(p))}
+    function endsWithIgnoreCase(s,p){return toLowerTrim(s).endsWith(toLowerTrim(p))}
+    function containsIgnoreCase(s,p){return toLowerTrim(s).indexOf(toLowerTrim(p))>-1}
+    function splitTrim(s,sep){return ensureString(s).split(sep).map(x=>x.trim()).filter(Boolean)}
+    function joinNonEmpty(arr,sep){return arr.filter(Boolean).join(sep)}
+    function clampToMax(v,max){return Math.min(v,max)}
+    function clampToMin(v,min){return Math.max(v,min)}
+    function toNumberOrDefault(s,def){const n=parseFloat(s);return isNaN(n)?def:n}
+    function safeCall(fn,...args){try{return fn(...args)}catch(e){return null}}
+    function callIfFunction(fn,...args){if(typeof fn==='function') return fn(...args);return null}
+    function isFunction(v){return typeof v==='function'}
+    function isObject(v){return v!==null && typeof v==='object' && !Array.isArray(v)}
+    function isArray(v){return Array.isArray(v)}
+    function isString(v){return typeof v==='string'}
+    function isBoolean(v){return typeof v==='boolean'}
+    function isNumber(v){return typeof v==='number' && !isNaN(v)}
+    function isDate(v){return v instanceof Date}
+    function toDate(v){return new Date(v)}
+    function formatIsoDate(d){return (new Date(d)).toISOString()}
+    function parseIsoDate(s){return new Date(s)}
+    function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+    function addHours(d,n){const x=new Date(d);x.setHours(x.getHours()+n);return x}
+    function addMinutes(d,n){const x=new Date(d);x.setMinutes(x.getMinutes()+n);return x}
+    function diffMs(a,b){return Math.abs(new Date(a)-new Date(b))}
+    function diffSeconds(a,b){return Math.round(diffMs(a,b)/1000)}
+    function diffMinutes(a,b){return Math.round(diffMs(a,b)/60000)}
+    function clampDate(d,min,max){const x=new Date(d);if(min && x<new Date(min)) return new Date(min); if(max && x>new Date(max)) return new Date(max); return x}
+    function toLocalString(d){return new Date(d).toLocaleString()}
+    function toShortDate(d){const x=new Date(d);return x.getFullYear()+'-'+pad(x.getMonth()+1,2)+'-'+pad(x.getDate(),2)}
+    function toShortTime(d){const x=new Date(d);return pad(x.getHours(),2)+':'+pad(x.getMinutes(),2)}
+    function nowMs(){return Date.now()}
+    function nowIsoShort(){return new Date().toISOString().replace('T',' ').split('.')[0]}
+    function uidLong(){return 'id_'+Math.random().toString(36).slice(2)+Date.now().toString(36)}
+    function noopAsync(){return Promise.resolve(null)}
+    function identityAsync(x){return Promise.resolve(x)}
+    function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+    function runSequence(arr,fn){return arr.reduce((p,item)=>p.then(()=>fn(item)),Promise.resolve())}
+    function runParallel(arr,fn){return Promise.all(arr.map(fn))}
+    function safeJson(obj){try{return JSON.stringify(obj)}catch(e){return '{}'}}
+    function parseJsonSafe(s){try{return JSON.parse(s)}catch(e){return null}}
+    function tryParseInt(s,def){const n=parseInt(s,10);return isNaN(n)?def:n}
+    function tryParseFloat(s,def){const n=parseFloat(s);return isNaN(n)?def:n}
+    function clampToEven(n){return n%2===0?n:n+1}
+    function clampToOdd(n){return n%2===1?n:n+1}
+    function toBooleanString(b){return b?'true':'false'}
+    function fromBooleanString(s){return ['true','1','yes','y'].includes(String(s).toLowerCase())}
+    function ensurePositive(n){return Math.abs(n)}
+    function ensureNonNegative(n){return Math.max(0,n)}
+    function ensureInteger(n){return Math.round(n)}
+    function ensureFinite(n,def){return isFinite(n)?n:def}
+    function safeEval(expr,ctx){try;return (new Function('with(this){return '+expr+'}')).call(ctx||{})}catch(e){return null}}
+    function clampPrecision(n,p){return Number(Number(n).toFixed(p))}
+    function toCurrency(n){return '$'+Number(n).toFixed(2)}
+    function toPercent(n){return Number(n*100).toFixed(1)+'%'}
+    function toOrdinal(n){const s=['th','st','nd','rd'];const v=n%100;return n+(s[(v-20)%10]||s[v]||s[0])}
+    function clampWithinArray(arr,idx){return arr[clampIndex(idx,arr.length)]}
+    function ensureMinLength(s,len){s=String(s);while(s.length<len)s+=' ';return s}
+    function ensureMaxLength(s,len){s=String(s);return s.length>len?s.slice(0,len):s}
+    function padLeft(s,len,ch){s=String(s);while(s.length<len)s=ch+s;return s}
+    function padRight(s,len,ch){s=String(s);while(s.length<len)s=s+ch;return s}
+    function splitEvery(s,n){const out=[];for(let i=0;i<s.length;i+=n)out.push(s.slice(i,i+n));return out}
+    function joinWithLimit(arr,sep,limit){return arr.slice(0,limit).join(sep)}
+    function clampToMaxLen(s,len){return s.length>len?s.slice(0,len):s}
+    function safeHtmlEscape(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+    function safeHtmlUnescape(s){return String(s).replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"')}
+    function toCssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name)}
+    function setCssVar(name,val){document.documentElement.style.setProperty(name,val)}
+    function toggleClass(el,cls){if(el.classList.contains(cls))el.classList.remove(cls);else el.classList.add(cls)}
+    function addClass(el,cls){el.classList.add(cls)}
+    function removeClass(el,cls){el.classList.remove(cls)}
+    function hasClass(el,cls){return el.classList.contains(cls)}
+    function setAttr(el,k,v){el.setAttribute(k,v)}
+    function getAttr(el,k){return el.getAttribute(k)}
+    function removeAttr(el,k){el.removeAttribute(k)}
+    function createEl(tag,props){const e=document.createElement(tag);if(props){for(const k in props){if(k==='style')Object.assign(e.style,props[k]);else if(k==='text')e.textContent=props[k];else e.setAttribute(k,props[k])}}return e}
+    function append(parent,child){parent.appendChild(child);return child}
+    function prepend(parent,child){parent.insertBefore(child,parent.firstChild);return child}
+    function removeEl(el){if(el&&el.parentNode)el.parentNode.removeChild(el)}
+    function emptyEl(el){while(el.firstChild)el.removeChild(el.firstChild)}
+    function query(sel,ctx){return (ctx||document).querySelector(sel)}
+    function queryAll(sel,ctx){return Array.from((ctx||document).querySelectorAll(sel))}
+    function on(el,event,fn,opts){el.addEventListener(event,fn,opts);return ()=>el.removeEventListener(event,fn,opts)}
+    function onceEvent(el,event,fn){const h=(e)=>{el.removeEventListener(event,h);fn(e)};el.addEventListener(event,h)}
+    function trigger(el,eventName,detail){el.dispatchEvent(new CustomEvent(eventName,{detail}))}
+    function css(el,styles){for(const k in styles)el.style[k]=styles[k]}
+    function show(el){el.style.display='block'}
+    function hide(el){el.style.display='none'}
+    function toggle(el){el.style.display=el.style.display==='none'?'block':'none'}
+    function isVisible(el){return !!(el.offsetWidth||el.offsetHeight||el.getClientRects().length)}
+    function scrollToEl(el,opts){el.scrollIntoView(opts||{behavior:'smooth',block:'center'})}
+    function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+    function scrollToBottom(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}
+    function clampScrollTop(){window.scrollTo({top:Math.max(0,window.scrollY),behavior:'instant'})}
+    function getViewport(){return {w:window.innerWidth,h:window.innerHeight}}
+    function onResize(fn){window.addEventListener('resize',fn);return ()=>window.removeEventListener('resize',fn)}
+    function onVisibilityChange(fn){document.addEventListener('visibilitychange',fn);return ()=>document.removeEventListener('visibilitychange',fn)}
+    function isHidden(el){return el.offsetParent===null}
+    function measureText(text,font){const c=document.createElement('canvas');const ctx=c.getContext('2d');ctx.font=font||'16px Arial';return ctx.measureText(text)}
+    function clampFontSize(el,min,max){const s=parseFloat(getComputedStyle(el).fontSize);el.style.fontSize=clamp(s,min,max)+'px'}
+    function setFocus(el){try{el.focus()}catch(e){}}
+    function blurEl(el){try{el.blur()}catch(e){}}
+    function selectText(el){if(el.select)el.select()}
+    function copyToClipboard(text){navigator.clipboard&&navigator.clipboard.writeText&&navigator.clipboard.writeText(text)}
+    function readClipboard(){return navigator.clipboard&&navigator.clipboard.readText?navigator.clipboard.readText():Promise.resolve('')}
+    function vibrate(ms){if(navigator.vibrate)navigator.vibrate(ms)}
+    function playBeep(freq,duration){try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const o=ctx.createOscillator();const g=ctx.createGain();o.type='sine';o.frequency.value=freq;g.gain.value=0.02;o.connect(g);g.connect(ctx.destination);o.start();setTimeout(()=>{o.stop();ctx.close()},duration)}catch(e){}}
+    function flashScreen(color,ms){const el=document.createElement('div');el.style.position='fixed';el.style.left=0;el.style.top=0;el.style.right=0;el.style.bottom=0;el.style.background=color;el.style.opacity='0.9';el.style.zIndex=99999;document.body.appendChild(el);setTimeout(()=>{document.body.removeChild(el)},ms)}
+    function animateCss(el,cls,ms){el.classList.add(cls);setTimeout(()=>el.classList.remove(cls),ms)}
+    function createModal(content){const m=document.createElement('div');m.style.position='fixed';m.style.left='0';m.style.top='0';m.style.right='0';m.style.bottom='0';m.style.display='flex';m.style.alignItems='center';m.style.justifyContent='center';m.style.background='rgba(0,0,0,0.6)';m.style.zIndex=99999;const c=document.createElement('div');c.style.background='#021025';c.style.padding='20px';c.style.borderRadius='12px';c.style.color='white';c.innerHTML=content;m.appendChild(c);document.body.appendChild(m);return ()=>{document.body.removeChild(m)}}
+    function showToast(msg,timeout){const t=document.createElement('div');t.textContent=msg;t.style.position='fixed';t.style.right='20px';t.style.bottom='20px';t.style.background='rgba(0,0,0,0.7)';t.style.color='white';t.style.padding='10px 14px';t.style.borderRadius='8px';t.style.zIndex=99999;document.body.appendChild(t);setTimeout(()=>{document.body.removeChild(t)},timeout||2000)}
+    function clampWithinBounds(x,min,max){return Math.max(min,Math.min(max,x))}
+    function ensurePositiveInt(n){return Math.max(0,Math.floor(n))}
+    function ensureNonEmptyString(s,def){s=String(s||'').trim();return s? s: def}
+    function safeCallAsync(fn,...args){return new Promise((res)=>{try{Promise.resolve(fn(...args)).then(res).catch(()=>res(null))}catch(e){res(null)}})}
+    function runWithTimeout(promise,ms){return Promise.race([promise,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms))])}
+    function tryMultiple(fns){for(const f of fns){try{const r=f();if(r) return r}catch(e){}}return null}
+    function ensureArrayOfStrings(arr){return (arr||[]).map(x=>String(x))}
+    function toCsv(rows){return rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n')}
+    function fromCsv(csv){return csv.split('\n').map(r=>r.split(','))}
+    function downloadText(filename,content){const a=document.createElement('a');a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(content);a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a)}
+    function downloadJson(filename,obj){downloadText(filename,JSON.stringify(obj,null,2))}
+    function downloadBlob(filename,blob){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+    function toBase64(str){return btoa(unescape(encodeURIComponent(str)))}
+    function fromBase64(b64){return decodeURIComponent(escape(atob(b64)))}
+    function encodeUtf8(s){return new TextEncoder().encode(s)}
+    function decodeUtf8(u8){return new TextDecoder().decode(u8)}
+    function isLocalhost(){return location.hostname==='localhost' || location.hostname==='127.0.0.1'}
+    function isHttps(){return location.protocol==='https:'}
+    function getHost(){return location.hostname}
+    function getPath(){return location.pathname}
+    function getQuery(){return location.search}
+    function getHash(){return location.hash}
+    function setHash(h){location.hash=h}
+    function replaceUrl(url){history.replaceState(null,'',url)}
+    function pushUrl(url){history.pushState(null,'',url)}
+    function back(){history.back()}
+    function forward(){history.forward()}
+    function reload(){location.reload()}
+    function openWindow(url){window.open(url,'_blank')}
+    function closeWindow(){window.close()}
+    function printPage(){window.print()}
+    function getCookies(){return document.cookie.split(';').map(c=>c.trim())}
+    function setCookie(name,value,days){let d='';if(days){const dt=new Date();dt.setTime(dt.getTime()+days*24*60*60*1000);d=';expires='+dt.toUTCString()}document.cookie=name+'='+value+d+';path=/'}
+    function getCookie(name){const c=document.cookie.split(';').map(x=>x.trim());for(const p of c){if(p.startsWith(name+'='))return p.split('=')[1]}return null}
+    function deleteCookie(name){setCookie(name,'',-1)}
+    function supportsLocalStorage(){try{return 'localStorage' in window && window.localStorage}catch(e){return false}}
+    function setLocal(key,val){if(supportsLocalStorage())localStorage.setItem(key,JSON.stringify(val))}
+    function getLocal(key,def){if(supportsLocalStorage()){const v=localStorage.getItem(key);return v?JSON.parse(v):def}return def}
+    function removeLocal(key){if(supportsLocalStorage())localStorage.removeItem(key)}
+    function clearLocal(){if(supportsLocalStorage())localStorage.clear()}
+    function supportsSessionStorage(){try{return 'sessionStorage' in window && window.sessionStorage}catch(e){return false}}
+    function setSession(key,val){if(supportsSessionStorage())sessionStorage.setItem(key,JSON.stringify(val))}
+    function getSession(key,def){if(supportsSessionStorage()){const v=sessionStorage.getItem(key);return v?JSON.parse(v):def}return def}
+    function removeSession(key){if(supportsSessionStorage())sessionStorage.removeItem(key)}
+    function clearSession(){if(supportsSessionStorage())sessionStorage.clear()}
+    function saveGameState(state){setLocal('dumbness_state',state)}
+    function loadGameState(){return getLocal('dumbness_state',null)}
+    function clearGameState(){removeLocal('dumbness_state')}
+    function exportState(){const s=loadGameState();downloadJson('dumbness_state.json',s||{})}
+    function importState(file){const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);saveGameState(j);showToast('Imported');}catch(e){showToast('Import failed')}};r.readAsText(file)}
+    function attachFileInput(cb){const f=document.createElement('input');f.type='file';f.onchange=()=>cb(f.files);f.click()}
+    function attachImageInput(cb){const f=document.createElement('input');f.type='file';f.accept='image/*';f.onchange=()=>cb(f.files);f.click()}
+    function readFileAsDataUrl(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
+    function readFileAsText(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsText(file)})}
+    function toDataUrlFromCanvas(canvas){return canvas.toDataURL('image/png')}
+    function createCanvas(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
+    function drawRect(ctx,x,y,w,h,fill){ctx.fillStyle=fill;ctx.fillRect(x,y,w,h)}
+    function drawCircle(ctx,x,y,r,fill){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();ctx.closePath()}
+    function drawText(ctx,text,x,y,opts){ctx.fillStyle=opts.color||'white';ctx.font=opts.font||'16px sans-serif';ctx.fillText(text,x,y)}
+    function createGradient(ctx,x0,y0,x1,y1,stops){const g=ctx.createLinearGradient(x0,y0,x1,y1);stops.forEach(s=>g.addColorStop(s.offset,s.color));return g}
+    function measureTextWidth(ctx,text,font){ctx.font=font||'16px sans-serif';return ctx.measureText(text).width}
+    function createImage(url){return new Promise((res,rej)=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>res(i);i.onerror=rej;i.src=url})}
+    function drawImageScaled(ctx,img,x,y,w,h){ctx.drawImage(img,x,y,w,h)}
+    function clearCanvas(ctx){ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)}
+    function getCanvasContext(w,h){const c=createCanvas(w,h);return c.getContext('2d')}
+    function toBlob(canvas,quality){return new Promise(res=>canvas.toBlob(res,'image/png',quality))}
+    function downloadCanvas(canvas,filename){toBlob(canvas).then(b=>downloadBlob(filename,b))}
+    function createAudioContext(){return new (window.AudioContext||window.webkitAudioContext)()}
+    function createOscillator(ctx,freq,type){const o=ctx.createOscillator();o.type=type||'sine';o.frequency.value=freq;const g=ctx.createGain();g.gain.value=0.02;o.connect(g);g.connect(ctx.destination);return {osc:o,gain:g}}
+    function startOscillator(o){o.osc.start()}
+    function stopOscillator(o){o.osc.stop()}
+    function rampGain(g,to,ms){g.gain.linearRampToValueAtTime(to,g.context.currentTime+ms/1000)}
+    function createAudioBeep(freq,duration){const ctx=createAudioContext();const o=createOscillator(ctx,freq);o.osc.start();setTimeout(()=>{o.osc.stop();ctx.close()},duration)}
+    function supportsWebAudio(){try{return !!(window.AudioContext||window.webkitAudioContext)}catch(e){return false}}
+    function supportsVibrate(){return 'vibrate' in navigator}
+    function supportsServiceWorker(){return 'serviceWorker' in navigator}
+    function registerServiceWorker(path){if(supportsServiceWorker())navigator.serviceWorker.register(path)}
+    function unregisterServiceWorkers(){if(supportsServiceWorker())navigator.serviceWorker.getRegistrations().then(regs=>regs.forEach(r=>r.unregister()))}
+    function supportsNotifications(){return 'Notification' in window}
+    function requestNotificationPermission(){if(supportsNotifications())Notification.requestPermission()}
+    function showNotification(title,opts){if(supportsNotifications()&&Notification.permission==='granted')new Notification(title,opts)}
+    function scheduleNotification(title,opts,delay){setTimeout(()=>showNotification(title,opts),delay)}
+    function supportsGeolocation(){return 'geolocation' in navigator}
+    function getCurrentPosition(opts){return new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,opts))}
+    function watchPosition(cb,opts){return navigator.geolocation.watchPosition(cb,err=>{},opts)}
+    function clearWatch(id){navigator.geolocation.clearWatch(id)}
+    function supportsBluetooth(){return 'bluetooth' in navigator}
+    function supportsUsb(){return 'usb' in navigator}
+    function supportsNfc(){return 'nfc' in navigator}
+    function supportsWebRtc(){return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)}
+    function getMediaStream(constraints){return navigator.mediaDevices.getUserMedia(constraints)}
+    function stopMediaStream(stream){stream.getTracks().forEach(t=>t.stop())}
+    function supportsClipboard(){return !!navigator.clipboard}
+    function supportsFileSystem(){return 'showOpenFilePicker' in window}
+    function supportsPayment(){return 'PaymentRequest' in window}
+    function supportsShare(){return 'share' in navigator}
+    function shareData(data){if(supportsShare())navigator.share(data)}
+    function supportsIdle(){return 'idle' in navigator}
+    function supportsWakeLock(){return 'wakeLock' in navigator}
+    function requestWakeLock(){if(supportsWakeLock())navigator.wakeLock.request('screen')}
+    function releaseWakeLock(lock){if(lock)lock.release()}
+    function supportsStorageManager(){return 'storage' in navigator && 'estimate' in navigator.storage}
+    function estimateStorage(){if(supportsStorageManager())return navigator.storage.estimate();return Promise.resolve({})}
+    function supportsNetworkInformation(){return 'connection' in navigator}
+    function getNetworkInfo(){return navigator.connection||null}
+    function supportsBattery(){return 'getBattery' in navigator}
+    function getBatteryInfo(){if(supportsBattery())return navigator.getBattery();return Promise.resolve(null)}
+    function supportsIdleDetector(){return 'IdleDetector' in window}
+    function supportsCredentialManagement(){return 'credentials' in navigator}
+    function supportsWebAuthn(){return 'PublicKeyCredential' in window}
+    function supportsIndexedDb(){return 'indexedDB' in window}
+    function openIndexedDb(name,version,upgrade){return new Promise((res,rej)=>{const r=indexedDB.open(name,version);r.onupgradeneeded=upgrade;r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+    function deleteIndexedDb(name){return new Promise((res,rej)=>{const r=indexedDB.deleteDatabase(name);r.onsuccess=res;r.onerror=rej})}
+    function supportsCache(){return 'caches' in window}
+    function openCache(name){return caches.open(name)}
+    function deleteCache(name){return caches.delete(name)}
+    function supportsWebSocket(){return 'WebSocket' in window}
+    function createWebSocket(url){return new WebSocket(url)}
+    function supportsLocalFile(){return location.protocol==='file:'}
+    function supportsCrossOrigin(){return true}
+    function supportsCors(){return true}
+    function supportsServiceWorkers(){return 'serviceWorker' in navigator}
+    function supportsPush(){return 'PushManager' in window}
+    function supportsBackgroundSync(){return 'SyncManager' in window}
+    function supportsPeriodicSync(){return 'periodicSync' in navigator}
+    function supportsCredential(){return 'credentials' in navigator}
+    function supportsMediaCapabilities(){return 'mediaCapabilities' in navigator}
+    function supportsPresentation(){return 'presentation' in navigator}
+    function supportsGamepad(){return 'getGamepads' in navigator}
+    function supportsFullscreen(){return document.fullscreenEnabled}
+    function requestFullscreen(el){if(el.requestFullscreen)el.requestFullscreen()}
+    function exitFullscreen(){if(document.exitFullscreen)document.exitFullscreen()}
+    function isFullscreen(){return !!document.fullscreenElement}
+    function supportsPointerLock(){return 'pointerLockElement' in document}
+    function requestPointerLock(el){if(el.requestPointerLock)el.requestPointerLock()}
+    function exitPointerLock(){if(document.exitPointerLock)document.exitPointerLock()}
+    function supportsTouch(){return 'ontouchstart' in window}
+    function supportsOrientation(){return 'orientation' in window}
+    function supportsDeviceMotion(){return 'DeviceMotionEvent' in window}
+    function supportsDeviceOrientation(){return 'DeviceOrientationEvent' in window}
+    function supportsSpeechRecognition(){return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window}
+    function createSpeechRecognition(){const R=window.SpeechRecognition||window.webkitSpeechRecognition;return new R()}
+    function supportsSpeechSynthesis(){return 'speechSynthesis' in window}
+    function speak(text,opts){if(supportsSpeechSynthesis()){const u=new SpeechSynthesisUtterance(text);if(opts&&opts.lang)u.lang=opts.lang;window.speechSynthesis.speak(u)}}
+    function stopSpeaking(){if(supportsSpeechSynthesis())window.speechSynthesis.cancel()}
+    function supportsClipboardRead(){return !!navigator.clipboard && !!navigator.clipboard.readText}
+    function supportsClipboardWrite(){return !!navigator.clipboard && !!navigator.clipboard.writeText}
+    function supportsFileSystemAccess(){return 'showSaveFilePicker' in window}
+    function supportsMediaRecorder(){return 'MediaRecorder' in window}
+    function createMediaRecorder(stream,opts){return new MediaRecorder(stream,opts)}
+    function supportsWebGL(){try{const c=document.createElement('canvas');return !!(c.getContext('webgl')||c.getContext('experimental-webgl'))}catch(e){return false}}
+    function supportsWebP(){const c=document.createElement('canvas');return c.toDataURL('image/webp').indexOf('data:image/webp')===0}
+    function supportsAvif(){try{const c=document.createElement('canvas');return c.toDataURL('image/avif').indexOf('data:image/avif')===0}catch(e){return false}}
+    function supportsCssGrid(){return CSS.supports('display','grid')}
+    function supportsCssVariables(){return CSS.supports('--a','0')}
+    function supportsBackdropFilter(){return CSS.supports('backdrop-filter','blur(2px)')}
+    function supportsClipPath(){return CSS.supports('clip-path','circle(50%)')}
+    function supportsMixBlend(){return CSS.supports('mix-blend-mode','screen')}
+    function supportsFilter(){return CSS.supports('filter','blur(2px)')}
+    function supportsTransforms(){return CSS.supports('transform','translateX(1px)')}
+    function supportsTransitions(){return CSS.supports('transition','all 0.2s ease')}
+    function supportsAnimations(){return CSS.supports('animation','name 1s')}
+    function supportsGridTemplate(){return CSS.supports('grid-template-columns','1fr 1fr')}
+    function supportsBackdrop(){return CSS.supports('backdrop-filter','blur(2px)')}
+    function supportsColorGamut(){return CSS.supports('color-gamut','p3')}
+    function supportsPrefersColorScheme(){return window.matchMedia('(prefers-color-scheme: dark)').matches||window.matchMedia('(prefers-color-scheme: light)').matches}
+    function prefersDark(){return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches}
+    function prefersLight(){return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches}
+    function onPrefersColorSchemeChange(fn){if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',fn)}
+    function supportsReducedMotion(){return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches}
+    function onReducedMotionChange(fn){if(window.matchMedia)window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',fn)}
+    function supportsHover(){return window.matchMedia && window.matchMedia('(hover: hover)').matches}
+    function supportsPointerFine(){return window.matchMedia && window.matchMedia('(pointer: fine)').matches}
+    function supportsPointerCoarse(){return window.matchMedia && window.matchMedia('(pointer: coarse)').matches}
+    function supportsAnyHover(){return window.matchMedia && window.matchMedia('(any-hover: hover)').matches}
+    function supportsAnyPointer(){return window.matchMedia && window.matchMedia('(any-pointer: fine)').matches}
+    function supportsColorScheme(s){return window.matchMedia && window.matchMedia('(prefers-color-scheme: '+s+')').matches}
+    function supportsFeature(feature){try{return !!(feature in window)}catch(e){return false}}
+    function detectCapabilities(){return {webgl:supportsWebGL(),webrtc:supportsWebRtc(),audio:supportsWebAudio(),vibrate:supportsVibrate(),clipboard:supportsClipboard()}}
+    function capabilitySummary(){return JSON.stringify(detectCapabilities())}
+    function logCapabilities(){console.log('capabilities',detectCapabilities())}
+          function showNamePrompt() {
+          // Stop the game UI
+          gameEl.classList.add("hidden");
+      
+          // Show only the name section
+          finalEl.classList.remove("hidden");
+          finalTitle.textContent = "Before you go...";
+          finalScoreEl.textContent = "You reached 3 wrong answers.";
+          finalCommentEl.textContent = "Enter your name to join the universal dumb list.";
+      
+          // Show the name input
+          document.getElementById("name-section").style.display = "flex";
+      }
+
+    logCapabilities();
   </script>
 </body>
 </html>
+```

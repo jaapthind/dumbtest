@@ -462,36 +462,42 @@
 
     const ring=document.getElementById('ring');
     const countdownText=document.getElementById('countdown-text');
-    let introCountdown=10;
-    function startIntroCountdown(){
-      const total=302;
-      const steps=introCountdown;
-      countdownText.textContent=introCountdown;
-      ring.style.strokeDashoffset=total;
-      let tick=0;
-      const interval=setInterval(()=>{
-        introCountdown--;
-        tick++;
-        if(introCountdown<=0){
-          countdownText.textContent='GO';
-          ring.style.transition='stroke-dashoffset 0.4s linear';
-          ring.style.strokeDashoffset=0;
-          clearInterval(interval);
-          setTimeout(()=>{
-            introEl.classList.add('hidden');
-            gameEl.classList.remove('hidden');
-            startGame();
-          },700);
-          return;
-        }
-        countdownText.textContent=introCountdown;
-        const offset=Math.round(total*(introCountdown/steps));
-        ring.style.transition='stroke-dashoffset 0.9s linear';
-        ring.style.strokeDashoffset=offset;
-      },1000);
+    let introCountdown = 10;
+
+function startIntroCountdown() {
+  const total = 302;
+  const steps = introCountdown;
+
+  countdownText.textContent = introCountdown;
+  ring.style.strokeDashoffset = total;
+
+  const interval = setInterval(() => {
+    introCountdown--;
+
+    if (introCountdown <= 0) {
+      countdownText.textContent = "GO";
+      ring.style.strokeDashoffset = 0;
+
+      clearInterval(interval);
+
+      setTimeout(() => {
+        introEl.classList.add("hidden");
+        gameEl.classList.remove("hidden");
+        startGame();
+      }, 700);
+
+      return;
     }
 
-    setTimeout(()=>{startIntroCountdown()},600);
+    countdownText.textContent = introCountdown;
+    const offset = Math.round(total * (introCountdown / steps));
+    ring.style.strokeDashoffset = offset;
+
+  }, 1000);
+}
+
+setTimeout(startIntroCountdown, 600);
+
 
     function startGame(){currentQuestionIndex=0;score=0;wrongCount=0;metaScoreEl.textContent=score;metaWrongEl.textContent=wrongCount;showQuestion()}
 

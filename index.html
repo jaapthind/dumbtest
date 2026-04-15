@@ -2,114 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Dumbness Test — Mega Extended Edition</title>
+  <title>Dumbness Test — Ultra Mega Extended Edition</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    :root{
-      --bg1:#030417;
-      --bg2:#071029;
-      --panel:rgba(12,18,30,0.96);
-      --accent1:#22d3ee;
-      --accent2:#a855f7;
-      --accent3:#f97316;
-      --muted:#9ca3af;
-      --white:#eaf6ff;
-      --danger:#ff6b6b;
-      --success:#4ade80;
+    :root {
+      --bg1: #030417; --bg2: #071029;
+      --panel: rgba(12,18,30,0.96);
+      --accent1: #22d3ee; --accent2: #a855f7; --accent3: #f97316;
+      --muted: #9ca3af; --white: #eaf6ff;
+      --danger: #ff6b6b; --success: #4ade80;
+      --gold: #fbbf24;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body,#app{height:100%}
-    body{
-      background:radial-gradient(circle at 10% 10%, var(--bg2) 0%, #020617 40%, #000 100%);
-      color:var(--white);
-      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow:hidden;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #app { height: 100%; }
+    body {
+      background: radial-gradient(circle at 10% 10%, var(--bg2) 0%, #020617 40%, #000 100%);
+      color: var(--white);
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
     }
-    #app{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:18px}
-    .hidden{display:none !important}
+    #app { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; padding: 18px; }
+    .hidden { display: none !important; }
+    
     /* Intro scene */
-    #intro{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;z-index:120;background:linear-gradient(180deg,rgba(2,6,23,0.98),rgba(0,0,0,0.995));overflow:hidden}
-    .tunnel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:10}
-    .tunnel .ring{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,0.02);box-shadow:0 0 80px rgba(34,211,238,0.06);transform:scale(0.6);animation:ringPulse 8s linear infinite}
-    .tunnel .ring.r1{width:1600px;height:1600px;opacity:0.06;animation-duration:12s}
-    .tunnel .ring.r2{width:1200px;height:1200px;opacity:0.05;animation-duration:14s}
-    .tunnel .ring.r3{width:900px;height:900px;opacity:0.04;animation-duration:16s}
-    .tunnel .ring.r4{width:600px;height:600px;opacity:0.03;animation-duration:18s}
-    .tunnel .ring.r5{width:300px;height:300px;opacity:0.02;animation-duration:20s}
-    @keyframes ringPulse{0%{transform:scale(0.6) rotate(0deg)}50%{transform:scale(1.02) rotate(180deg)}100%{transform:scale(0.6) rotate(360deg)}}
-    .glitch-text{font-size:84px;font-weight:900;letter-spacing:0.12em;color:var(--white);text-transform:uppercase;z-index:22;mix-blend-mode:screen;position:relative}
-    .glitch-text .g1{position:absolute;left:0;top:0;color:#22d3ee;clip-path:polygon(0 0,100% 0,100% 40%,0 40%);transform:translate(6px,-4px);opacity:0.9;filter:blur(0.6px)}
-    .glitch-text .g2{position:absolute;left:0;top:0;color:#a855f7;clip-path:polygon(0 60%,100% 60%,100% 100%,0 100%);transform:translate(-6px,4px);opacity:0.9;filter:blur(0.6px)}
-    .glitch-text .g0{position:relative;z-index:22}
-    .intro-sub{font-size:14px;color:var(--muted);z-index:22;margin-top:6px}
-    .flash-grid{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(255,255,255,0.01) 1px,transparent 1px),linear-gradient(180deg,rgba(255,255,255,0.01) 1px,transparent 1px);background-size:40px 40px;opacity:0.06;mix-blend-mode:overlay;animation:flashGrid 8s linear infinite}
-    @keyframes flashGrid{0%{opacity:0.02}50%{opacity:0.12}100%{opacity:0.02}}
-    .countdown-box{position:relative;z-index:22;margin-top:18px;display:flex;align-items:center;gap:12px}
-    .countdown-num{font-size:48px;font-weight:900;color:var(--gold);background:rgba(255,255,255,0.02);padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
-    .skip-intro{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:999px;color:var(--muted);cursor:pointer}
+    #intro { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; z-index: 120; background: linear-gradient(180deg, rgba(2,6,23,0.98), rgba(0,0,0,0.995)); overflow: hidden; }
+    .tunnel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; }
+    .tunnel .ring { position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,0.02); box-shadow: 0 0 80px rgba(34,211,238,0.06); transform: scale(0.6); animation: ringPulse 8s linear infinite; }
+    .tunnel .ring.r1 { width: 1600px; height: 1600px; opacity: 0.06; animation-duration: 12s; }
+    .tunnel .ring.r2 { width: 1200px; height: 1200px; opacity: 0.05; animation-duration: 14s; }
+    .tunnel .ring.r3 { width: 900px; height: 900px; opacity: 0.04; animation-duration: 16s; }
+    .tunnel .ring.r4 { width: 600px; height: 600px; opacity: 0.03; animation-duration: 18s; }
+    .tunnel .ring.r5 { width: 300px; height: 300px; opacity: 0.02; animation-duration: 20s; }
+    @keyframes ringPulse { 0% { transform: scale(0.6) rotate(0deg); } 50% { transform: scale(1.02) rotate(180deg); } 100% { transform: scale(0.6) rotate(360deg); } }
+    
+    .glitch-text { font-size: 84px; font-weight: 900; letter-spacing: 0.12em; color: var(--white); text-transform: uppercase; z-index: 22; mix-blend-mode: screen; position: relative; }
+    .glitch-text .g1 { position: absolute; left: 0; top: 0; color: #22d3ee; clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%); transform: translate(6px,-4px); opacity: 0.9; filter: blur(0.6px); }
+    .glitch-text .g2 { position: absolute; left: 0; top: 0; color: #a855f7; clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); transform: translate(-6px,4px); opacity: 0.9; filter: blur(0.6px); }
+    .glitch-text .g0 { position: relative; z-index: 22; }
+    .intro-sub { font-size: 14px; color: var(--muted); z-index: 22; margin-top: 6px; }
+    .flash-grid { position: absolute; inset: 0; background-image: linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.06; mix-blend-mode: overlay; animation: flashGrid 8s linear infinite; }
+    @keyframes flashGrid { 0% { opacity: 0.02; } 50% { opacity: 0.12; } 100% { opacity: 0.02; } }
+    .countdown-box { position: relative; z-index: 22; margin-top: 18px; display: flex; align-items: center; gap: 12px; }
+    .countdown-num { font-size: 48px; font-weight: 900; color: var(--gold); background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.02); }
+    .skip-intro { background: transparent; border: 1px solid rgba(255,255,255,0.04); padding: 8px 12px; border-radius: 999px; color: var(--muted); cursor: pointer; }
+    
     /* Game UI */
-    #game{position:relative;width:100%;max-width:1400px;margin:0 auto;z-index:40;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:flex-start;padding:28px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));box-shadow:0 30px 120px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02);min-height:84vh;overflow:hidden}
-    #header{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    #title{font-size:20px;font-weight:900;letter-spacing:0.12em;color:var(--white);text-transform:uppercase}
-    #meta{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px}
-    #question-container{width:100%;background:var(--panel);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:12px;border:1px solid rgba(255,255,255,0.02)}
-    #question-type{font-size:12px;color:var(--accent2);text-transform:uppercase;letter-spacing:0.12em}
-    #question-text{font-size:18px;color:var(--white)}
-    #color-test-area{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
-    .color-option{flex:1 1 calc(25% - 12px);min-width:120px;height:96px;border-radius:10px;cursor:pointer;border:2px solid rgba(255,255,255,0.02);transition:transform 0.12s ease,box-shadow 0.12s ease,border-color 0.12s ease;display:flex;align-items:center;justify-content:center;font-weight:700;color:rgba(0,0,0,0.6)}
-    .color-option:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6);border-color:rgba(255,255,255,0.06)}
-    #number-display{font-size:48px;font-weight:900;color:var(--gold);text-align:center;letter-spacing:0.12em;margin-top:8px}
-    #bot-question-extra{color:var(--muted);font-size:13px;margin-top:6px}
-    #answer-area{display:flex;gap:8px;margin-top:8px}
-    #answer-input{flex:1;padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);outline:none;font-size:14px}
-    #submit-btn{padding:10px 16px;border-radius:999px;border:none;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#021025;font-weight:800;cursor:pointer}
-    #feedback{min-height:22px;font-size:13px;color:var(--muted);margin-top:6px}
-    .feedback-correct{color:var(--success)}
-    .feedback-wrong{color:var(--danger)}
-    #progress-bar-wrapper{width:100%;margin-top:8px}
-    #progress-bar{width:100%;height:12px;border-radius:999px;background:#0b1220;border:1px solid rgba(255,255,255,0.02);overflow:hidden}
-    #progress-fill{width:0%;height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width 0.35s ease}
-    #final-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:28px}
-    #final-title{font-size:36px;font-weight:900;color:var(--white)}
-    #final-score{font-size:18px;color:var(--accent2)}
-    #final-comment{font-size:14px;color:var(--muted);max-width:720px;text-align:center}
-    #restart-btn{padding:12px 20px;border-radius:999px;border:none;background:linear-gradient(135deg,#3b82f6,#6366f1);color:white;font-weight:800;cursor:pointer}
-    #name-prompt{display:flex;gap:8px;align-items:center}
-    #name-input{padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white);outline:none}
-    #save-name-btn{padding:8px 12px;border-radius:999px;border:none;background:linear-gradient(135deg,var(--accent2),var(--accent3));color:#021025;font-weight:800;cursor:pointer}
-    #skip-name-btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
-    #recent-dumbs{margin-top:12px;color:var(--muted);font-size:13px}
-    @media (max-width:900px){.glitch-text{font-size:36px}.intro-sub{font-size:12px}#game{padding:16px}.color-option{min-width:100px;height:80px}}
-    /* filler classes */
-    .v1{opacity:0.02}.v2{opacity:0.03}.v3{opacity:0.04}.v4{opacity:0.05}.v5{opacity:0.06}.v6{opacity:0.07}.v7{opacity:0.08}.v8{opacity:0.09}.v9{opacity:0.1}
-    .b1{border-radius:4px}.b2{border-radius:6px}.b3{border-radius:8px}.b4{border-radius:10px}.b5{border-radius:12px}
-    .s1{box-shadow:0 6px 18px rgba(0,0,0,0.4)}.s2{box-shadow:0 8px 24px rgba(0,0,0,0.45)}.s3{box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-    .t1{transform:translateY(2px)}.t2{transform:translateY(4px)}.t3{transform:translateY(6px)}
-    .g1{background:linear-gradient(90deg,#22d3ee,#a855f7)}.g2{background:linear-gradient(90deg,#a855f7,#f97316)}.g3{background:linear-gradient(90deg,#f97316,#22d3ee)}
-    .padded{padding:12px}.padded-lg{padding:20px}.padded-xl{padding:28px}
-    .flex{display:flex}.col{flex-direction:column}.row{flex-direction:row}.center{align-items:center;justify-content:center}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Roboto Mono","Courier New",monospace}
+    #game { position: relative; width: 100%; max-width: 1400px; margin: 0 auto; z-index: 40; display: flex; flex-direction: column; gap: 18px; align-items: center; justify-content: flex-start; padding: 28px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); box-shadow: 0 30px 120px rgba(2,6,23,0.6); border: 1px solid rgba(255,255,255,0.02); min-height: 84vh; overflow: hidden; }
+    #header { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    #title { font-size: 20px; font-weight: 900; letter-spacing: 0.12em; color: var(--white); text-transform: uppercase; }
+    #meta { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 13px; }
+    
+    #question-container { width: 100%; background: var(--panel); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid rgba(255,255,255,0.02); position: relative; }
+    #question-type { font-size: 12px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.12em; }
+    #question-text { font-size: 18px; color: var(--white); }
+    
+    #color-test-area { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+    .color-option { flex: 1 1 calc(25% - 12px); min-width: 120px; height: 96px; border-radius: 10px; cursor: pointer; border: 2px solid rgba(255,255,255,0.02); transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease; display: flex; align-items: center; justify-content: center; font-weight: 700; color: rgba(0,0,0,0.6); }
+    .color-option:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.06); }
+    
+    #number-display { font-size: 48px; font-weight: 900; color: var(--gold); text-align: center; letter-spacing: 0.12em; margin-top: 8px; }
+    #bot-question-extra { color: var(--muted); font-size: 13px; margin-top: 6px; }
+    
+    #answer-area { display: flex; gap: 8px; margin-top: 8px; }
+    #answer-input { flex: 1; padding: 12px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--white); outline: none; font-size: 14px; }
+    #submit-btn { padding: 10px 16px; border-radius: 999px; border: none; background: linear-gradient(135deg, var(--accent1), var(--accent2)); color: #021025; font-weight: 800; cursor: pointer; }
+    
+    #feedback { min-height: 22px; font-size: 13px; color: var(--muted); margin-top: 6px; }
+    .feedback-correct { color: var(--success); }
+    .feedback-wrong { color: var(--danger); }
+    
+    #name-section { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    #name-prompt { display: flex; gap: 8px; align-items: center; }
+    #name-input { padding: 10px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--white); outline: none; }
+    #save-name-btn { padding: 8px 12px; border-radius: 999px; border: none; background: linear-gradient(135deg, var(--accent2), var(--accent3)); color: #021025; font-weight: 800; cursor: pointer; }
+    #skip-name-btn { padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--muted); cursor: pointer; }
+    #recent-dumbs { margin-top: 12px; color: var(--muted); font-size: 13px; }
+    
+    #progress-bar-wrapper { width: 100%; margin-top: 8px; }
+    #progress-bar { width: 100%; height: 12px; border-radius: 999px; background: #0b1220; border: 1px solid rgba(255,255,255,0.02); overflow: hidden; }
+    #progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent1), var(--accent2)); transition: width 0.35s ease; }
+    
+    #final-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 28px; }
+    #final-title { font-size: 36px; font-weight: 900; color: var(--white); }
+    #final-score { font-size: 18px; color: var(--accent2); }
+    #final-comment { font-size: 14px; color: var(--muted); max-width: 720px; text-align: center; }
+    #restart-btn { padding: 12px 20px; border-radius: 999px; border: none; background: linear-gradient(135deg, #3b82f6, #6366f1); color: white; font-weight: 800; cursor: pointer; }
+    
+    /* Pattern matching game additions */
+    #pattern-area { display: flex; gap: 12px; justify-content: center; margin-top: 10px; }
+    .pattern-box { width: 60px; height: 60px; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: rgba(0,0,0,0.4); cursor: pointer; transition: all 0.2s; }
+    .pattern-box.active { background: rgba(34,211,238,0.2); border-color: var(--accent1); box-shadow: 0 0 15px rgba(34,211,238,0.4); transform: scale(1.1); }
+    .pattern-box.user-click { background: rgba(168,85,247,0.3); border-color: var(--accent2); }
+    
+    /* Drag game additions */
+    #drag-area { position: relative; height: 200px; border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; margin-top: 10px; overflow: hidden; }
+    .draggable { position: absolute; width: 50px; height: 50px; background: var(--accent3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: grab; font-weight: bold; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); user-select: none; }
+    .draggable:active { cursor: grabbing; transform: scale(1.05); }
+    .dropzone { position: absolute; width: 70px; height: 70px; border: 3px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); }
+    .dropzone.highlight { border-color: var(--success); background: rgba(74,222,128,0.1); }
+    
+    @media (max-width: 900px) {
+      .glitch-text { font-size: 36px; } .intro-sub { font-size: 12px; } #game { padding: 16px; } .color-option { min-width: 100px; height: 80px; }
+    }
   </style>
 </head>
 <body>
   <div id="app">
     <div id="intro" aria-hidden="false">
       <div class="tunnel" aria-hidden="true">
-        <div class="ring r1"></div>
-        <div class="ring r2"></div>
-        <div class="ring r3"></div>
-        <div class="ring r4"></div>
-        <div class="ring r5"></div>
+        <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div><div class="ring r5"></div>
       </div>
       <div class="flash-grid"></div>
       <div class="glitch-text" aria-hidden="true">
-        <div class="g1">DUMB</div>
-        <div class="g2">DUMB</div>
-        <div class="g0">DUMBNESS TEST</div>
+        <div class="g1">DUMB</div><div class="g2">DUMB</div><div class="g0">DUMBNESS TEST</div>
       </div>
-      <div class="intro-sub">A playful assessment of attention, color perception, and bot-like reflexes</div>
+      <div class="intro-sub">A playful assessment of attention, color perception, memory, and bot-like reflexes</div>
       <div class="countdown-box">
         <div class="countdown-num" id="countdown-text">10</div>
         <button class="skip-intro" id="skip-intro-btn">Skip Intro</button>
@@ -120,7 +129,7 @@
       <div id="header">
         <div id="title">DUMBNESS TEST</div>
         <div id="meta">
-          <div>Question: <strong id="meta-question">1 / 20</strong></div>
+          <div>Question: <strong id="meta-question">1 / 40</strong></div>
           <div>Score: <strong id="meta-score">0</strong></div>
           <div>Wrong: <strong id="meta-wrong">0</strong></div>
         </div>
@@ -130,7 +139,10 @@
         <div id="question-type">Color IQ</div>
         <div id="question-text">Which color is different?</div>
 
-        <div id="color-test-area" aria-hidden="false"></div>
+        <div id="color-test-area" class="hidden" aria-hidden="true"></div>
+        
+        <div id="pattern-area" class="hidden" aria-hidden="true"></div>
+        <div id="drag-area" class="hidden" aria-hidden="true"></div>
 
         <div id="number-display" class="hidden" aria-hidden="true"></div>
         <div id="bot-question-extra" class="hidden" aria-hidden="true"></div>
@@ -142,8 +154,8 @@
 
         <div id="feedback" aria-live="polite"></div>
 
-        <div id="name-section" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
-          <div id="name-prompt" style="align-items:center;display:none">
+        <div id="name-section" style="display:none;">
+          <div id="name-prompt" style="display:flex;">
             <input id="name-input" placeholder="Enter your name to save (optional)" />
             <button id="save-name-btn">Save Name</button>
             <button id="skip-name-btn">Skip</button>
@@ -153,7 +165,7 @@
       </div>
 
       <div id="progress-bar-wrapper">
-        <div id="progress-label">Progress</div>
+        <div id="progress-label" style="font-size:12px; color:var(--muted); margin-bottom:4px;">Progress</div>
         <div id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
           <div id="progress-fill"></div>
         </div>
@@ -169,505 +181,257 @@
   </div>
 
   <script>
-    const GOOGLE_SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwvS8PA2XI41lZUWLnA8B8K7NZ0DQ8VIN5cYbuPqvgZ1x6JlNV576yW8BIheQNt_ZBWYQ/exec';
-    const GOOGLE_SHEET_FETCH = 'https://script.google.com/macros/s/AKfycbwvS8PA2XI41lZUWLnA8B8K7NZ0DQ8VIN5cYbuPqvgZ1x6JlNV576yW8BIheQNt_ZBWYQ/exec';
+    const GOOGLE_SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw3CNDbXCX-2BGsyPiVNxVRE_01OPlV1jNC-cRcFOzu6T--c2Iq9gR27TJ3Yf8-ZAfN/exec';
+    
+    const ui = {
+      intro: document.getElementById('intro'), game: document.getElementById('game'), final: document.getElementById('final-screen'),
+      mQ: document.getElementById('meta-question'), mS: document.getElementById('meta-score'), mW: document.getElementById('meta-wrong'),
+      qType: document.getElementById('question-type'), qText: document.getElementById('question-text'),
+      colorArea: document.getElementById('color-test-area'), patternArea: document.getElementById('pattern-area'), dragArea: document.getElementById('drag-area'),
+      numDisp: document.getElementById('number-display'), botExt: document.getElementById('bot-question-extra'),
+      ansArea: document.getElementById('answer-area'), ansInp: document.getElementById('answer-input'), subBtn: document.getElementById('submit-btn'),
+      fb: document.getElementById('feedback'), pFill: document.getElementById('progress-fill'),
+      fScore: document.getElementById('final-score'), fCom: document.getElementById('final-comment'), rstBtn: document.getElementById('restart-btn'),
+      nameSec: document.getElementById('name-section'), nInp: document.getElementById('name-input'), 
+      sNameBtn: document.getElementById('save-name-btn'), skpNameBtn: document.getElementById('skip-name-btn'), recList: document.getElementById('recent-list'),
+      cdTxt: document.getElementById('countdown-text'), skpInt: document.getElementById('skip-intro-btn')
+    };
 
-    const introEl = document.getElementById('intro');
-    const gameEl = document.getElementById('game');
-    const finalEl = document.getElementById('final-screen');
-    const metaQuestionEl = document.getElementById('meta-question');
-    const metaScoreEl = document.getElementById('meta-score');
-    const metaWrongEl = document.getElementById('meta-wrong');
-    const questionTypeEl = document.getElementById('question-type');
-    const questionTextEl = document.getElementById('question-text');
-    const colorAreaEl = document.getElementById('color-test-area');
-    const numberDisplayEl = document.getElementById('number-display');
-    const botExtraEl = document.getElementById('bot-question-extra');
-    const answerAreaEl = document.getElementById('answer-area');
-    const answerInputEl = document.getElementById('answer-input');
-    const submitBtnEl = document.getElementById('submit-btn');
-    const feedbackEl = document.getElementById('feedback');
-    const progressFillEl = document.getElementById('progress-fill');
-    const finalScoreEl = document.getElementById('final-score');
-    const finalCommentEl = document.getElementById('final-comment');
-    const restartBtnEl = document.getElementById('restart-btn');
-    const namePromptEl = document.getElementById('name-prompt');
-    const nameInputEl = document.getElementById('name-input');
-    const saveNameBtnEl = document.getElementById('save-name-btn');
-    const skipNameBtnEl = document.getElementById('skip-name-btn');
-    const recentListEl = document.getElementById('recent-list');
-    const countdownText = document.getElementById('countdown-text');
-    const skipIntroBtn = document.getElementById('skip-intro-btn');
+    let state = { idx: 0, score: 0, wrong: 0, maxW: 3, total: 40, qs: [], introCd: 10, introInt: null, patternSeq: [], userSeq: [], dragState: {} };
 
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let wrongCount = 0;
-    const maxWrong = 3;
-    const totalQuestions = 20;
-    const questions = [];
+    const utils = {
+      rand: (min,max) => Math.floor(Math.random()*(max-min+1))+min,
+      clamp: (v,a,b) => Math.max(a,Math.min(b,v)),
+      rgb: c => `rgb(${c.r},${c.g},${c.b})`,
+      shuf: arr => { for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]} return arr; },
+      hideAll: () => { [ui.colorArea, ui.patternArea, ui.dragArea, ui.numDisp, ui.botExt, ui.ansArea].forEach(el => el.classList.add('hidden')); }
+    };
 
-    function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
-    function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-    function rgbToCss(c){return 'rgb('+c.r+','+c.g+','+c.b+')'}
-    function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
-
-    function createColorQuestion(level){
-      const baseColors=[
-        {r:255,g:0,b:0},
-        {r:0,g:255,b:0},
-        {r:0,g:0,b:255},
-        {r:255,g:255,b:0},
-        {r:255,g:0,b:255},
-        {r:0,g:255,b:255},
-        {r:200,g:120,b:80},
-        {r:120,g:200,b:160},
-        {r:180,g:80,b:200},
-        {r:80,g:180,b:120},
-        {r:220,g:140,b:60},
-        {r:140,g:220,b:180}
-      ];
-      const base=baseColors[randInt(0,baseColors.length-1)];
-      const optionsCount=4;
-      const diffIndex=randInt(0,optionsCount-1);
-      const difficultyOffset=Math.max(3,120-level*16);
-      const offset=difficultyOffset;
-      const options=[];
-      for(let i=0;i<optionsCount;i++){
-        if(i===diffIndex){
-          const sign=Math.random()<0.5?-1:1;
-          const channel=['r','g','b'][randInt(0,2)];
-          const diffColor={r:base.r,g:base.g,b:base.b};
-          diffColor[channel]=clamp(diffColor[channel]+sign*offset,0,255);
-          options.push(diffColor);
-        } else {
-          const noise={r:base.r,g:base.g,b:base.b};
-          noise.r=clamp(noise.r+randInt(-5,5),0,255);
-          noise.g=clamp(noise.g+randInt(-5,5),0,255);
-          noise.b=clamp(noise.b+randInt(-5,5),0,255);
-          options.push(noise);
+    const qs = {
+      color: lvl => {
+        const base = [{r:255,g:0,b:0},{r:0,g:255,b:0},{r:0,g:0,b:255},{r:255,g:255,b:0},{r:255,g:0,b:255},{r:0,g:255,b:255},{r:200,g:120,b:80},{r:120,g:200,b:160}][utils.rand(0,7)];
+        const opts = 4, dIdx = utils.rand(0,opts-1), off = Math.max(2, 80 - lvl*8), arr = [];
+        for(let i=0; i<opts; i++){
+          let c = {r:base.r, g:base.g, b:base.b};
+          if(i===dIdx) { let ch=['r','g','b'][utils.rand(0,2)]; c[ch] = utils.clamp(c[ch]+(Math.random()<0.5?-off:off), 0, 255); }
+          else { c.r = utils.clamp(c.r+utils.rand(-2,2),0,255); c.g = utils.clamp(c.g+utils.rand(-2,2),0,255); c.b = utils.clamp(c.b+utils.rand(-2,2),0,255); }
+          arr.push(c);
         }
-      }
-      return {type:'color',text:'Which color is slightly different from the others?',options:options,correctIndex:diffIndex,level:level};
+        return { t: 'color', txt: `Which color is different? (Lvl ${lvl})`, opts: arr, ans: dIdx };
+      },
+      pattern: lvl => {
+        let len = Math.min(6, 2 + Math.floor(lvl/2));
+        let seq = Array.from({length: len}, () => utils.rand(0,3));
+        return { t: 'pattern', txt: `Repeat the pattern. (Len ${len})`, seq: seq };
+      },
+      drag: lvl => {
+        return { t: 'drag', txt: `Drag the shape to the matching zone.` };
+      },
+      bot: [
+        {txt:'What number is displayed?', num:'4729', ans:'4729'}, {txt:'Type "human".', ans:'human', ex:'Prove it.'},
+        {txt:'What is 7 + 5 - 3?', ans:'9'}, {txt:'Last 3 letters of "elephant".', ans:'ant'},
+        {txt:'First letter of "Zebra" in lowercase.', ans:'z'}, {txt:'3 * 4 + 2?', ans:'14'},
+        {txt:'"robot" backwards.', ans:'tobor'}, {txt:'Second word: "Blue cats dance."', ans:'cats'},
+        {txt:'10 - 4 + 1?', ans:'7'}, {txt:'Color of clear sky (1 word).', ans:'blue'},
+        {txt:'First 3 letters of "keyboard".', ans:'key'}, {txt:'"yes" in uppercase.', ans:'YES'}
+      ]
+    };
+
+    function initQs() {
+      state.qs = [];
+      for(let i=1; i<=10; i++) state.qs.push(qs.color(i));
+      for(let i=1; i<=5; i++) state.qs.push(qs.pattern(i));
+      for(let i=1; i<=3; i++) state.qs.push(qs.drag(i));
+      utils.shuf(qs.bot).slice(0, 15).forEach(b => state.qs.push({t:'bot', txt:b.txt, num:b.num, ans:b.ans, ex:b.ex}));
+      while(state.qs.length < state.total) state.qs.push({t:'bot', txt:'Type "test".', ans:'test'});
+      utils.shuf(state.qs);
     }
 
-    const botQuestionsBank=[
-      {text:'What number is displayed on the screen?',number:'4729',answer:'4729',extra:''},
-      {text:'What number is displayed on the screen?',number:'10358',answer:'10358',extra:''},
-      {text:'Type the word "human" (without quotes).',number:'',answer:'human',extra:'Prove you are not a bot.'},
-      {text:'What is 7 + 5 - 3?',number:'',answer:'9',extra:'Basic math.'},
-      {text:'Type the last three letters of the word "elephant".',number:'',answer:'ant',extra:''},
-      {text:'What number is displayed on the screen?',number:'9001',answer:'9001',extra:'It is over 9000.'},
-      {text:'Type the first letter of the word "Zebra" in lowercase.',number:'',answer:'z',extra:''},
-      {text:'What is 3 * 4 + 2?',number:'',answer:'14',extra:''},
-      {text:'Type the word "robot" backwards.',number:'',answer:'tobor',extra:''},
-      {text:'What number is displayed on the screen?',number:'314',answer:'314',extra:''},
-      {text:'Type the second word in this sentence: "Blue cats dance."',number:'',answer:'cats',extra:''},
-      {text:'What is 10 - 4 + 1?',number:'',answer:'7',extra:''},
-      {text:'Type the color of the sky on a clear day (one word).',number:'',answer:'blue',extra:''},
-      {text:'What number is displayed on the screen?',number:'808',answer:'808',extra:''},
-      {text:'Type the first three letters of the word "keyboard".',number:'',answer:'key',extra:''},
-      {text:'Type the word "yes" in uppercase.',number:'',answer:'YES',extra:''},
-      {text:'What is 2 + 2?',number:'',answer:'4',extra:''},
-      {text:'Type the word "mirror" without the first and last letters.',number:'',answer:'irro',extra:''},
-      {text:'What number is displayed on the screen?',number:'2718',answer:'2718',extra:''},
-      {text:'Type the word "openai" in lowercase.',number:'',answer:'openai',extra:''},
-      {text:'Type the word "alpha" then "beta" separated by a space.',number:'',answer:'alpha beta',extra:''},
-      {text:'What is 11 - 3 + 2?',number:'',answer:'10',extra:''},
-      {text:'Type the third letter of the word "javascript".',number:'',answer:'v',extra:''},
-      {text:'What number is displayed on the screen?',number:'999',answer:'999',extra:''},
-      {text:'Type the first and last letters of "dumbness".',number:'',answer:'ds',extra:''}
-    ];
-
-    (function buildQuestions(){
-      for(let i=1;i<=6;i++){questions.push(createColorQuestion(i))}
-      const shuffled=shuffle(botQuestionsBank.slice());
-      for(let i=0;i<shuffled.length&&questions.length<totalQuestions;i++){
-        const b=shuffled[i];
-        questions.push({type:'bot',text:b.text,number:b.number,answer:b.answer,extra:b.extra});
-      }
-      while(questions.length<totalQuestions){
-        questions.push({type:'bot',text:'Type the word "test".',number:'',answer:'test',extra:''});
-      }
-    })();
-
-    // Robust countdown implementation
-    let introCountdown = 10;
-    let introInterval = null;
-    function startIntroCountdown(){
-      clearInterval(introInterval);
-      introCountdown = 10;
-      countdownText.textContent = introCountdown;
-      introInterval = setInterval(()=>{
-        try {
-          introCountdown = Math.max(0, introCountdown - 1);
-          countdownText.textContent = introCountdown;
-          if(introCountdown <= 0){
-            clearInterval(introInterval);
-            countdownText.textContent = 'GO';
-            setTimeout(()=>{ hideIntroAndStart(); }, 600);
-          }
-        } catch(e) {
-          clearInterval(introInterval);
-          hideIntroAndStart();
-        }
+    function startIntro() {
+      clearInterval(state.introInt); state.introCd = 10; ui.cdTxt.textContent = state.introCd;
+      state.introInt = setInterval(() => {
+        state.introCd--; ui.cdTxt.textContent = state.introCd;
+        if(state.introCd <= 0) { clearInterval(state.introInt); ui.cdTxt.textContent = 'GO'; setTimeout(startGame, 600); }
       }, 1000);
     }
+    ui.skpInt.onclick = () => { clearInterval(state.introInt); startGame(); };
+    setTimeout(startIntro, 300);
 
-    function hideIntroAndStart(){
-      try {
-        introEl.classList.add('hidden');
-        gameEl.classList.remove('hidden');
-        startGame();
-      } catch(e) {
-        gameEl.classList.remove('hidden');
-        startGame();
-      }
+    function startGame() {
+      ui.intro.classList.add('hidden'); ui.game.classList.remove('hidden'); ui.final.classList.add('hidden');
+      initQs(); state.idx = 0; state.score = 0; state.wrong = 0; updateMeta(); showQ();
     }
 
-    skipIntroBtn.addEventListener('click', ()=>{
-      clearInterval(introInterval);
-      hideIntroAndStart();
-    });
+    function updateMeta() { ui.mQ.textContent = `${state.idx+1} / ${state.total}`; ui.mS.textContent = state.score; ui.mW.textContent = state.wrong; ui.pFill.style.width = `${Math.round((state.idx/state.total)*100)}%`; }
 
-    // Start intro countdown after small delay
-    setTimeout(()=>{ startIntroCountdown(); }, 300);
-
-    function startGame(){currentQuestionIndex=0;score=0;wrongCount=0;metaScoreEl.textContent=score;metaWrongEl.textContent=wrongCount;updateProgress();showQuestion()}
-
-    function showQuestion(){
-      if(currentQuestionIndex>=totalQuestions){endGame();return}
-      const q=questions[currentQuestionIndex];
-      metaQuestionEl.textContent=(currentQuestionIndex+1)+' / '+totalQuestions;
-      updateProgress();
-      feedbackEl.textContent='';
-      feedbackEl.className='';
-      if(answerInputEl)answerInputEl.value='';
-      colorAreaEl.innerHTML='';
-      numberDisplayEl.classList.add('hidden');
-      botExtraEl.classList.add('hidden');
-      answerAreaEl.classList.add('hidden');
-      namePromptEl.style.display = 'none';
-      if(q.type==='color'){questionTypeEl.textContent='Color IQ';questionTextEl.textContent=q.text+' (Level '+(q.level||1)+')';renderColorQuestion(q)}
-      else{questionTypeEl.textContent='Bot Filter';questionTextEl.textContent=q.text;renderBotQuestion(q)}
+    function showQ() {
+      if(state.idx >= state.total) return endGame();
+      updateMeta(); utils.hideAll(); ui.fb.textContent = ''; ui.fb.className = ''; ui.nameSec.style.display = 'none';
+      const q = state.qs[state.idx];
+      if(q.t === 'color') renderColor(q);
+      else if(q.t === 'bot') renderBot(q);
+      else if(q.t === 'pattern') renderPattern(q);
+      else if(q.t === 'drag') renderDrag(q);
     }
 
-    function renderColorQuestion(q){
-      colorAreaEl.classList.remove('hidden');
-      answerAreaEl.classList.add('hidden');
-      const order=q.options.map((_,i)=>i).sort(()=>Math.random()-0.5);
-      order.forEach((idx)=>{
-        const c=q.options[idx];
-        const div=document.createElement('div');
-        div.className='color-option';
-        div.style.backgroundColor=rgbToCss(c);
-        div.setAttribute('role','button');
-        div.setAttribute('tabindex','0');
-        div.setAttribute('aria-label','Color option');
-        div.addEventListener('click',()=>{handleColorAnswer(idx===q.correctIndex)});
-        div.addEventListener('keydown',(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();handleColorAnswer(idx===q.correctIndex)}});
-        colorAreaEl.appendChild(div);
+    function hAns(corr) {
+      if(corr) { state.score+=5; ui.fb.textContent='Correct.'; ui.fb.className='feedback-correct'; }
+      else { state.wrong++; ui.fb.textContent='Wrong.'; ui.fb.className='feedback-wrong'; }
+      updateMeta();
+      if(state.wrong === state.maxW) return doName();
+      if(state.wrong > state.maxW) return setTimeout(()=>endGame(true), 700);
+      disGame(true); setTimeout(() => { disGame(false); state.idx++; showQ(); }, 800);
+    }
+
+    function renderColor(q) {
+      ui.qType.textContent='Color IQ'; ui.qText.textContent=q.txt; ui.colorArea.classList.remove('hidden'); ui.colorArea.innerHTML='';
+      const order = utils.shuf(q.opts.map((_,i)=>i));
+      order.forEach(i => {
+        const d = document.createElement('div'); d.className='color-option'; d.style.backgroundColor=utils.rgb(q.opts[i]);
+        d.onclick = () => hAns(i === q.ans); ui.colorArea.appendChild(d);
       });
-      let hintTimer=setTimeout(()=>{
-        const children=Array.from(colorAreaEl.children);
-        const correctColor=rgbToCss(q.options[q.correctIndex]);
-        const correctChild=children.find(child=>child.style.backgroundColor===correctColor);
-        if(correctChild){correctChild.style.boxShadow='0 0 0 6px rgba(255,255,255,0.04) inset';setTimeout(()=>{correctChild.style.boxShadow=''},700)}
-      },3000);
-      function cleanupHint(){clearTimeout(hintTimer)}
-      Array.from(colorAreaEl.children).forEach(child=>child.addEventListener('click',cleanupHint));
     }
 
-    function handleColorAnswer(isCorrect){
-      if(isCorrect){score+=5;feedbackEl.textContent='Correct. Your eyes are functioning.';feedbackEl.className='feedback-correct'}
-      else{wrongCount++;metaWrongEl.textContent=wrongCount;feedbackEl.textContent='Wrong. Maybe your monitor is lying to you.';feedbackEl.className='feedback-wrong'}
-      metaScoreEl.textContent=score;
-      if(wrongCount===maxWrong){promptForName();return}
-      if(wrongCount>maxWrong){setTimeout(()=>{endGame(true)},700);return}
-      setTimeout(()=>{currentQuestionIndex++;showQuestion()},900);
+    function renderBot(q) {
+      ui.qType.textContent='Bot Filter'; ui.qText.textContent=q.txt; ui.ansArea.classList.remove('hidden');
+      if(q.num) { ui.numDisp.textContent=q.num; ui.numDisp.classList.remove('hidden'); }
+      if(q.ex) { ui.botExt.textContent=q.ex; ui.botExt.classList.remove('hidden'); }
+      ui.ansInp.value=''; ui.ansInp.focus();
+      ui.subBtn.onclick = () => { if(!ui.ansInp.value.trim())return; hAns(ui.ansInp.value.trim().toLowerCase() === q.ans.toLowerCase()); };
+      ui.ansInp.onkeydown = e => { if(e.key==='Enter') ui.subBtn.onclick(); };
     }
 
-    function renderBotQuestion(q){
-      colorAreaEl.classList.add('hidden');
-      answerAreaEl.classList.remove('hidden');
-      if(q.number&&q.number.length>0){numberDisplayEl.textContent=q.number;numberDisplayEl.classList.remove('hidden')}else{numberDisplayEl.classList.add('hidden')}
-      if(q.extra&&q.extra.length>0){botExtraEl.textContent=q.extra;botExtraEl.classList.remove('hidden')}else{botExtraEl.classList.add('hidden')}
-      answerInputEl.focus();
-      submitBtnEl.onclick=()=>{handleBotAnswer(q)};
-      answerInputEl.onkeydown=(e)=>{if(e.key==='Enter'){e.preventDefault();handleBotAnswer(q)}};
+    function renderPattern(q) {
+      ui.qType.textContent='Memory'; ui.qText.textContent=q.txt; ui.patternArea.classList.remove('hidden'); ui.patternArea.innerHTML='';
+      state.patternSeq = q.seq; state.userSeq = [];
+      const symbols = ['A','B','C','D'];
+      for(let i=0; i<4; i++) {
+        const d = document.createElement('div'); d.className='pattern-box'; d.textContent=symbols[i]; d.id=`pb-${i}`;
+        d.onclick = () => {
+          if(state.patternSeq.length === 0) return; // not ready
+          d.classList.add('user-click'); setTimeout(()=>d.classList.remove('user-click'), 200);
+          state.userSeq.push(i);
+          if(state.userSeq[state.userSeq.length-1] !== state.patternSeq[state.userSeq.length-1]) return hAns(false);
+          if(state.userSeq.length === state.patternSeq.length) hAns(true);
+        };
+        ui.patternArea.appendChild(d);
+      }
+      disGame(true);
+      let step = 0;
+      let playSeq = setInterval(() => {
+        if(step >= q.seq.length) { clearInterval(playSeq); disGame(false); return; }
+        let box = document.getElementById(`pb-${q.seq[step]}`);
+        box.classList.add('active'); setTimeout(()=>box.classList.remove('active'), 400);
+        step++;
+      }, 600);
     }
 
-    function handleBotAnswer(q){
-      const userAnswer=answerInputEl.value.trim();
-      if(!userAnswer){feedbackEl.textContent='At least type something.';feedbackEl.className='feedback-wrong';return}
-      if(userAnswer.toLowerCase()===q.answer.toLowerCase()){score+=5;feedbackEl.textContent='Correct. Suspiciously competent.';feedbackEl.className='feedback-correct'}
-      else{wrongCount++;metaWrongEl.textContent=wrongCount;feedbackEl.textContent='Wrong. The bots are amused.';feedbackEl.className='feedback-wrong'}
-      metaScoreEl.textContent=score;
-      if(wrongCount===maxWrong){promptForName();return}
-      if(wrongCount>maxWrong){setTimeout(()=>{endGame(true)},700);return}
-      setTimeout(()=>{currentQuestionIndex++;showQuestion()},900);
-    }
+    function renderDrag(q) {
+      ui.qType.textContent='Motor Skills'; ui.qText.textContent=q.txt; ui.dragArea.classList.remove('hidden'); ui.dragArea.innerHTML='';
+      const zx = utils.rand(10, 300), zy = utils.rand(10, 100);
+      const zone = document.createElement('div'); zone.className='dropzone'; zone.style.left=zx+'px'; zone.style.top=zy+'px'; zone.textContent='DROP';
+      ui.dragArea.appendChild(zone);
+      
+      let px = utils.rand(10,300), py = utils.rand(10,100);
+      while(Math.abs(px-zx)<80 && Math.abs(py-zy)<80) { px = utils.rand(10,300); py = utils.rand(10,100); }
+      const item = document.createElement('div'); item.className='draggable'; item.style.left=px+'px'; item.style.top=py+'px'; item.textContent='O';
+      ui.dragArea.appendChild(item);
 
-    function promptForName(){
-      namePromptEl.style.display = 'flex';
-      nameInputEl.value = '';
-      nameInputEl.focus();
-      disableGameInteractions(true);
-      saveNameBtnEl.onclick = () => {
-        const name = (nameInputEl.value || '').trim();
-        if(!name) return;
-        saveNameToCloud(name);
-        disableGameInteractions(false);
-        setTimeout(()=>{endGame(true)},600);
+      let isDown = false, offX = 0, offY = 0;
+      const down = e => { isDown=true; const rect=item.getBoundingClientRect(); offX=(e.clientX||e.touches[0].clientX)-rect.left; offY=(e.clientY||e.touches[0].clientY)-rect.top; };
+      const move = e => {
+        if(!isDown) return;
+        const pRect=ui.dragArea.getBoundingClientRect();
+        let nx = (e.clientX||e.touches[0].clientX)-pRect.left-offX, ny = (e.clientY||e.touches[0].clientY)-pRect.top-offY;
+        nx = utils.clamp(nx, 0, pRect.width-50); ny = utils.clamp(ny, 0, pRect.height-50);
+        item.style.left=nx+'px'; item.style.top=ny+'px';
+        const cX=nx+25, cY=ny+25;
+        if(Math.hypot(cX-(zx+35), cY-(zy+35)) < 30) zone.classList.add('highlight'); else zone.classList.remove('highlight');
       };
-      skipNameBtnEl.onclick = () => {
-        disableGameInteractions(false);
-        setTimeout(()=>{endGame(true)},300);
-      };
+      const up = () => { if(!isDown)return; isDown=false; if(zone.classList.contains('highlight')){ item.style.display='none'; zone.textContent='OK'; hAns(true); } };
+      
+      item.addEventListener('mousedown', down); document.addEventListener('mousemove', move); document.addEventListener('mouseup', up);
+      item.addEventListener('touchstart', down, {passive:false}); document.addEventListener('touchmove', move, {passive:false}); document.addEventListener('touchend', up);
+      // Clean up listeners on next Q
+      state.dragState = {m:move, u:up};
+    }
+    
+    // Clear global drag listeners
+    const obs = new MutationObserver(() => { if(ui.dragArea.classList.contains('hidden') && state.dragState.m) { document.removeEventListener('mousemove', state.dragState.m); document.removeEventListener('mouseup', state.dragState.u); document.removeEventListener('touchmove', state.dragState.m); document.removeEventListener('touchend', state.dragState.u); state.dragState={}; } });
+    obs.observe(ui.dragArea, {attributes:true});
+
+    function disGame(dis) { ui.game.style.pointerEvents = dis ? 'none' : 'auto'; ui.game.style.opacity = dis ? '0.7' : '1'; }
+
+    function doName() {
+      utils.hideAll(); ui.qText.textContent='Game Over. Save your shame?'; ui.nameSec.style.display='flex'; ui.nInp.value=''; ui.nInp.focus();
+      ui.sNameBtn.onclick = () => { const n=ui.nInp.value.trim(); if(!n)return; saveName(n); setTimeout(()=>endGame(true), 600); };
+      ui.skpNameBtn.onclick = () => endGame(true);
     }
 
-    function disableGameInteractions(disable){
-      const opts = document.querySelectorAll('.color-option, #submit-btn, #answer-input');
-      opts.forEach(o=>{o.style.pointerEvents = disable ? 'none' : 'auto'; o.style.opacity = disable ? '0.6' : '1'});
+    function saveName(n) {
+      const p = {name:n, score:state.score, ts:new Date().toISOString()};
+      fetch(GOOGLE_SHEET_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(p)}).then(r=>r.json()).then(res=>{ui.fb.textContent='Saved.'; getNames();}).catch(e=>{ui.fb.textContent='Save fail.';});
     }
 
-    function endGame(early=false){
-      gameEl.classList.add('hidden');
-      finalEl.classList.remove('hidden');
-      finalEl.setAttribute('aria-hidden','false');
-      const maxScore=totalQuestions*5;
-      finalScoreEl.textContent='You scored '+score+' out of '+maxScore+'.';
-      const ratio=score/maxScore;
-      let comment='';
-      if(early){comment='Game ended early due to wrong answers or name save.'}
-      else if(ratio>=0.9){comment='Either you are a genius or you guessed very well. Respect.'}
-      else if(ratio>=0.7){comment='Solid performance. You passed the dumbness gauntlet.'}
-      else if(ratio>=0.5){comment='Average. Human-level results.'}
-      else if(ratio>=0.3){comment='Below average. Maybe try again with coffee.'}
-      else{comment='Legendary chaos. You might be the dumbness champion.'}
-      finalCommentEl.textContent=comment;
-      progressFillEl.style.width='100%';
+    function getNames() {
+      fetch(GOOGLE_SHEET_ENDPOINT).then(r=>r.json()).then(d=>{ if(Array.isArray(d)) ui.recList.textContent = d.slice(0,8).map(x=>x.name).join(', '); }).catch(e=>ui.recList.textContent='error');
+    }
+    getNames();
+
+    function endGame(early=false) {
+      ui.game.classList.add('hidden'); ui.final.classList.remove('hidden');
+      const maxS = state.total*5, rat = state.score/maxS;
+      ui.fScore.textContent = `Score: ${state.score} / ${maxS}`;
+      ui.fCom.textContent = early ? 'Terminated early.' : (rat>=0.9 ? 'Genius level.' : (rat>=0.6 ? 'Acceptable human.' : 'Absolute potato.'));
     }
 
-    restartBtnEl.addEventListener('click',()=>{
-      finalEl.classList.add('hidden');
-      finalEl.setAttribute('aria-hidden','true');
-      gameEl.classList.remove('hidden');
-      currentQuestionIndex=0;
-      score=0;
-      wrongCount=0;
-      metaScoreEl.textContent=score;
-      metaWrongEl.textContent=wrongCount;
-      progressFillEl.style.width='0%';
-      showQuestion();
-    });
+    ui.rstBtn.onclick = startGame;
 
-    document.addEventListener('keydown',(e)=>{
-      if(e.key==='Escape'){if(!finalEl.classList.contains('hidden')){restartBtnEl.click()}}
-    });
-
-    saveNameBtnEl.addEventListener('click',()=>{
-      const name = (nameInputEl.value || '').trim();
-      if(!name) return;
-      saveNameToCloud(name);
-    });
-
-    skipNameBtnEl.addEventListener('click',()=>{
-      // handled in promptForName
-    });
-
-    function saveNameToCloud(name){
-      if(!GOOGLE_SHEET_ENDPOINT) {
-        feedbackEl.textContent = 'Save endpoint not configured.';
-        return;
+    // Expand script artificially
+    (function inflate(){
+      const mem = [];
+      for(let i=0; i<10000; i++) {
+        let v = Math.sin(i)*Math.cos(i);
+        mem.push({id: `hash_${Math.random().toString(36).substr(2)}`, val: v, str: v.toString(16)});
       }
-      const payload = { name: name, score: score, timestamp: new Date().toISOString() };
-      fetch(GOOGLE_SHEET_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(r=>r.json()).then(res=>{
-        feedbackEl.textContent = 'Name saved. Thanks.';
-        fetchRecentNames();
-      }).catch(err=>{
-        feedbackEl.textContent = 'Save failed.';
-        queueLocalSave(payload);
-      });
-    }
-
-    function fetchRecentNames(){
-      if(!GOOGLE_SHEET_FETCH){
-        recentListEl.textContent = 'no endpoint';
-        return;
-      }
-      fetch(GOOGLE_SHEET_FETCH).then(r=>r.json()).then(data=>{
-        if(Array.isArray(data) && data.length){
-          recentListEl.textContent = data.slice(0,8).map(x=>x.name).join(', ');
-        } else {
-          recentListEl.textContent = 'none yet';
-        }
-      }).catch(e=>{
-        recentListEl.textContent = 'error';
-      });
-    }
-
-    fetchRecentNames();
-
-    // local queue for failed saves
-    function queueLocalSave(payload){
-      const q = JSON.parse(localStorage.getItem('dumb_save_queue')||'[]');
-      q.push(payload);
-      localStorage.setItem('dumb_save_queue', JSON.stringify(q));
-    }
-    function flushLocalQueue(){
-      const q = JSON.parse(localStorage.getItem('dumb_save_queue')||'[]');
-      if(!q.length) return;
-      const item = q.shift();
-      fetch(GOOGLE_SHEET_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item)
-      }).then(r=>r.json()).then(()=>{localStorage.setItem('dumb_save_queue', JSON.stringify(q));flushLocalQueue()}).catch(()=>{q.unshift(item);localStorage.setItem('dumb_save_queue', JSON.stringify(q))});
-    }
-    setInterval(flushLocalQueue, 30000);
-
-    // utilities and filler to expand file size and robustness
-    function noop(){return null}
-    function identity(x){return x}
-    function alwaysTrue(){return true}
-    function alwaysFalse(){return false}
-    function randIntClone(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-    function clampClone(v,a,b){return Math.max(a,Math.min(b,v))}
-    function rgbToCssClone(c){return 'rgb('+c.r+','+c.g+','+c.b+')'}
-    (function longFillerBlock(){
-      const filler=[];
-      for(let i=0;i<4000;i++){
-        filler.push({id:'f'+i,value:Math.random(),label:'filler-'+i});
-      }
-      for(let i=0;i<filler.length;i++){
-        filler[i].value=Math.sqrt(filler[i].value)*Math.PI;
-        filler[i].hash=(filler[i].value*1000).toFixed(2);
-      }
-      window.__dumbness_filler=filler;
+      window.__junk = mem;
+      function a(x){return x+1} function b(x){return x-1} function c(x){return x*2} function d(x){return x/2}
+      const map = mem.map(x => c(a(x.val)));
     })();
-    function createTimer(ms,cb){const id=setTimeout(cb,ms);return ()=>clearTimeout(id)}
-    function createInterval(ms,cb){const id=setInterval(cb,ms);return ()=>clearInterval(id)}
-    function animateValue(el,from,to,duration){const start=performance.now();function step(now){const t=Math.min(1,(now-start)/duration);const v=from+(to-from)*t;el.style.width=v+'%';if(t<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
-    animateValue(progressFillEl,0,0,400);
+    for(let i=0; i<500; i++) { const nop = () => { let x=i*i; return x%2===0?x:-x; }; nop(); }
 
-    function flashFeedback(el,cls,ms){
-      const prev=el.className;
-      el.className=cls;
-      setTimeout(()=>{el.className=prev},ms);
-    }
-    function pulseElement(el,times,scale,interval){
-      let i=0;
-      const id=setInterval(()=>{
-        el.style.transform='scale('+ (1 + (scale*Math.sin((i/Math.max(1,times))*Math.PI))) +')';
-        i++;
-        if(i>times){clearInterval(id);el.style.transform='scale(1)'}
-      },interval);
-    }
-    function focusTrap(container){
-      const focusable='a,button,input,textarea,select,[tabindex]:not([tabindex="-1"])';
-      const nodes=Array.from(container.querySelectorAll(focusable)).filter(n=>!n.hasAttribute('disabled'));
-      if(nodes.length)nodes[0].focus();
-    }
-    function setAriaProgress(val){
-      const bar=document.getElementById('progress-bar');
-      if(bar)bar.setAttribute('aria-valuenow',String(val));
-    }
-    function safeText(s){return String(s).replace(/[<>]/g,'')}
-    function setMeta(question,scoreVal){
-      if(metaQuestionEl)metaQuestionEl.textContent=question;
-      if(metaScoreEl)metaScoreEl.textContent=scoreVal;
-    }
-    function revealAnswerTemporarily(el,txt,ms){
-      const prev=el.textContent;
-      el.textContent=txt;
-      setTimeout(()=>{el.textContent=prev},ms);
-    }
-    function randomizeArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
-    function clampPercent(v){return Math.max(0,Math.min(100,v))}
-    function formatScore(s){return String(s)}
-    function updateProgress(){
-      const percent=Math.round((currentQuestionIndex/totalQuestions)*100);
-      progressFillEl.style.width=percent+'%';
-      setAriaProgress(percent);
-    }
-    function quickWin(){
-      score=totalQuestions*5;
-      metaScoreEl.textContent=score;
-      currentQuestionIndex=totalQuestions;
-      endGame();
-    }
-    function quickLose(){
-      score=0;
-      metaScoreEl.textContent=score;
-      currentQuestionIndex=totalQuestions;
-      endGame();
-    }
-    function simulatePlaythrough(){
-      let i=0;
-      const id=setInterval(()=>{
-        if(currentQuestionIndex>=totalQuestions){clearInterval(id);return}
-        const q=questions[currentQuestionIndex];
-        if(q.type==='color'){handleColorAnswer(true)}else{answerInputEl.value=q.answer;handleBotAnswer(q)}
-        i++;
-      },350);
-    }
-    function helperA(a){return a}
-    function helperB(b){return b}
-    function helperC(c){return c}
-    function helperD(d){return d}
-    function helperE(e){return e}
-    function helperF(f){return f}
-    function helperG(g){return g}
-    function helperH(h){return h}
-    function helperI(i){return i}
-    function helperJ(j){return j}
-    function helperK(k){return k}
-    function helperL(l){return l}
-    function helperM(m){return m}
-    function helperN(n){return n}
-    function helperO(o){return o}
-    function helperP(p){return p}
-    function helperQ(q){return q}
-    function helperR(r){return r}
-    function helperS(s){return s}
-    function helperT(t){return t}
-    function helperU(u){return u}
-    function helperV(v){return v}
-    function helperW(w){return w}
-    function helperX(x){return x}
-    function helperY(y){return y}
-    function helperZ(z){return z}
-    const bigData=[];
-    for(let i=0;i<4800;i++){
-      bigData.push({i:i,rand:Math.random(),label:'item-'+i,meta:{a:i%7,b:i%13}});
-    }
-    window.__dumbness_bigdata=bigData;
-    function findInBigData(pred){
-      for(let i=0;i<bigData.length;i++){if(pred(bigData[i]))return bigData[i]}
-      return null;
-    }
-    function mapBigData(fn){const out=[];for(let i=0;i<bigData.length;i++){out.push(fn(bigData[i]))}return out}
-    function reduceBigData(fn,init){let acc=init;for(let i=0;i<bigData.length;i++){acc=fn(acc,bigData[i])}return acc}
-    function filterBigData(fn){const out=[];for(let i=0;i<bigData.length;i++){if(fn(bigData[i]))out.push(bigData[i])}return out}
-    function sampleBigData(n){const copy=bigData.slice();shuffle(copy);return copy.slice(0,n)}
-    function now(){return Date.now()}
-    function uid(prefix){return (prefix||'id')+'_'+Math.random().toString(36).slice(2,10)}
-    function clamp01(v){return Math.max(0,Math.min(1,v))}
-    function lerp(a,b,t){return a+(b-a)*t}
-    function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
-    function formatTime(ms){const s=Math.floor(ms/1000);const m=Math.floor(s/60);const ss=s%60;return m+':'+(ss<10?'0':'')+ss}
-    setTimeout(()=>{const focusable=gameEl.querySelector('input,button');if(focusable)focusable.focus()},1200);
+    // Quick "Dumbest Person" Popup Logic
+    window.addEventListener('load', async () => {
+      try {
+        const resp = await fetch(GOOGLE_SHEET_ENDPOINT);
+        const data = await resp.json();
+        if (!data || !data.length) return;
 
-    // final safety: ensure intro countdown always runs
-    if(typeof startIntroCountdown === 'function'){
-      try { if(introEl && !introEl.classList.contains('hidden')) startIntroCountdown(); } catch(e) {}
-    } else {
-      try { introEl.classList.add('hidden'); gameEl.classList.remove('hidden'); startGame(); } catch(e) {}
-    }
+        // Find the entry with the lowest score
+        const dumbest = data.reduce((min, p) => Number(p.score) < Number(min.score) ? p : min, data[0]);
+
+        // Create and show the popup overlay
+        const pop = document.createElement('div');
+        pop.style = "position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.95); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:Inter, sans-serif; text-align:center; padding:20px;";
+        pop.innerHTML = `
+          <h1 style="color:#ff6b6b; font-size:48px; font-weight:900; letter-spacing:4px;">⚠️ DUMBEST ALIVE ⚠️</h1>
+          <p style="font-size:32px; margin:24px 0; color:#fff; text-transform:uppercase;">${dumbest.name}</p>
+          <p style="color:#9ca3af; font-size:18px;">Has the lowest score record: <span style="color:#ff6b6b; font-weight:bold;">${dumbest.score}</span></p>
+        `;
+        
+        document.body.appendChild(pop);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+          pop.style.opacity = '0';
+          pop.style.transition = 'opacity 0.5s ease';
+          setTimeout(() => pop.remove(), 500);
+        }, 3000);
+      } catch (e) { 
+        console.log("No data found for shaming."); 
+      }
+    });
+
   </script>
 </body>
 </html>

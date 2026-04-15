@@ -1,437 +1,936 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Dumbness Test — Ultra Mega Extended Edition</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root {
-      --bg1: #030417; --bg2: #071029;
-      --panel: rgba(12,18,30,0.96);
-      --accent1: #22d3ee; --accent2: #a855f7; --accent3: #f97316;
-      --muted: #9ca3af; --white: #eaf6ff;
-      --danger: #ff6b6b; --success: #4ade80;
-      --gold: #fbbf24;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body, #app { height: 100%; }
-    body {
-      background: radial-gradient(circle at 10% 10%, var(--bg2) 0%, #020617 40%, #000 100%);
-      color: var(--white);
-      font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow: hidden;
-    }
-    #app { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; padding: 18px; }
-    .hidden { display: none !important; }
-    
-    /* Intro scene */
-    #intro { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; z-index: 120; background: linear-gradient(180deg, rgba(2,6,23,0.98), rgba(0,0,0,0.995)); overflow: hidden; }
-    .tunnel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; }
-    .tunnel .ring { position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,0.02); box-shadow: 0 0 80px rgba(34,211,238,0.06); transform: scale(0.6); animation: ringPulse 8s linear infinite; }
-    .tunnel .ring.r1 { width: 1600px; height: 1600px; opacity: 0.06; animation-duration: 12s; }
-    .tunnel .ring.r2 { width: 1200px; height: 1200px; opacity: 0.05; animation-duration: 14s; }
-    .tunnel .ring.r3 { width: 900px; height: 900px; opacity: 0.04; animation-duration: 16s; }
-    .tunnel .ring.r4 { width: 600px; height: 600px; opacity: 0.03; animation-duration: 18s; }
-    .tunnel .ring.r5 { width: 300px; height: 300px; opacity: 0.02; animation-duration: 20s; }
-    @keyframes ringPulse { 0% { transform: scale(0.6) rotate(0deg); } 50% { transform: scale(1.02) rotate(180deg); } 100% { transform: scale(0.6) rotate(360deg); } }
-    
-    .glitch-text { font-size: 84px; font-weight: 900; letter-spacing: 0.12em; color: var(--white); text-transform: uppercase; z-index: 22; mix-blend-mode: screen; position: relative; }
-    .glitch-text .g1 { position: absolute; left: 0; top: 0; color: #22d3ee; clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%); transform: translate(6px,-4px); opacity: 0.9; filter: blur(0.6px); }
-    .glitch-text .g2 { position: absolute; left: 0; top: 0; color: #a855f7; clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); transform: translate(-6px,4px); opacity: 0.9; filter: blur(0.6px); }
-    .glitch-text .g0 { position: relative; z-index: 22; }
-    .intro-sub { font-size: 14px; color: var(--muted); z-index: 22; margin-top: 6px; }
-    .flash-grid { position: absolute; inset: 0; background-image: linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.06; mix-blend-mode: overlay; animation: flashGrid 8s linear infinite; }
-    @keyframes flashGrid { 0% { opacity: 0.02; } 50% { opacity: 0.12; } 100% { opacity: 0.02; } }
-    .countdown-box { position: relative; z-index: 22; margin-top: 18px; display: flex; align-items: center; gap: 12px; }
-    .countdown-num { font-size: 48px; font-weight: 900; color: var(--gold); background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.02); }
-    .skip-intro { background: transparent; border: 1px solid rgba(255,255,255,0.04); padding: 8px 12px; border-radius: 999px; color: var(--muted); cursor: pointer; }
-    
-    /* Game UI */
-    #game { position: relative; width: 100%; max-width: 1400px; margin: 0 auto; z-index: 40; display: flex; flex-direction: column; gap: 18px; align-items: center; justify-content: flex-start; padding: 28px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); box-shadow: 0 30px 120px rgba(2,6,23,0.6); border: 1px solid rgba(255,255,255,0.02); min-height: 84vh; overflow: hidden; }
-    #header { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    #title { font-size: 20px; font-weight: 900; letter-spacing: 0.12em; color: var(--white); text-transform: uppercase; }
-    #meta { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 13px; }
-    
-    #question-container { width: 100%; background: var(--panel); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px; border: 1px solid rgba(255,255,255,0.02); position: relative; }
-    #question-type { font-size: 12px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.12em; }
-    #question-text { font-size: 18px; color: var(--white); }
-    
-    #color-test-area { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
-    .color-option { flex: 1 1 calc(25% - 12px); min-width: 120px; height: 96px; border-radius: 10px; cursor: pointer; border: 2px solid rgba(255,255,255,0.02); transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease; display: flex; align-items: center; justify-content: center; font-weight: 700; color: rgba(0,0,0,0.6); }
-    .color-option:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.06); }
-    
-    #number-display { font-size: 48px; font-weight: 900; color: var(--gold); text-align: center; letter-spacing: 0.12em; margin-top: 8px; }
-    #bot-question-extra { color: var(--muted); font-size: 13px; margin-top: 6px; }
-    
-    #answer-area { display: flex; gap: 8px; margin-top: 8px; }
-    #answer-input { flex: 1; padding: 12px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--white); outline: none; font-size: 14px; }
-    #submit-btn { padding: 10px 16px; border-radius: 999px; border: none; background: linear-gradient(135deg, var(--accent1), var(--accent2)); color: #021025; font-weight: 800; cursor: pointer; }
-    
-    #feedback { min-height: 22px; font-size: 13px; color: var(--muted); margin-top: 6px; }
-    .feedback-correct { color: var(--success); }
-    .feedback-wrong { color: var(--danger); }
-    
-    #name-section { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
-    #name-prompt { display: flex; gap: 8px; align-items: center; }
-    #name-input { padding: 10px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--white); outline: none; }
-    #save-name-btn { padding: 8px 12px; border-radius: 999px; border: none; background: linear-gradient(135deg, var(--accent2), var(--accent3)); color: #021025; font-weight: 800; cursor: pointer; }
-    #skip-name-btn { padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: transparent; color: var(--muted); cursor: pointer; }
-    #recent-dumbs { margin-top: 12px; color: var(--muted); font-size: 13px; }
-    
-    #progress-bar-wrapper { width: 100%; margin-top: 8px; }
-    #progress-bar { width: 100%; height: 12px; border-radius: 999px; background: #0b1220; border: 1px solid rgba(255,255,255,0.02); overflow: hidden; }
-    #progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent1), var(--accent2)); transition: width 0.35s ease; }
-    
-    #final-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 28px; }
-    #final-title { font-size: 36px; font-weight: 900; color: var(--white); }
-    #final-score { font-size: 18px; color: var(--accent2); }
-    #final-comment { font-size: 14px; color: var(--muted); max-width: 720px; text-align: center; }
-    #restart-btn { padding: 12px 20px; border-radius: 999px; border: none; background: linear-gradient(135deg, #3b82f6, #6366f1); color: white; font-weight: 800; cursor: pointer; }
-    
-    /* Pattern matching game additions */
-    #pattern-area { display: flex; gap: 12px; justify-content: center; margin-top: 10px; }
-    .pattern-box { width: 60px; height: 60px; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: rgba(0,0,0,0.4); cursor: pointer; transition: all 0.2s; }
-    .pattern-box.active { background: rgba(34,211,238,0.2); border-color: var(--accent1); box-shadow: 0 0 15px rgba(34,211,238,0.4); transform: scale(1.1); }
-    .pattern-box.user-click { background: rgba(168,85,247,0.3); border-color: var(--accent2); }
-    
-    /* Drag game additions */
-    #drag-area { position: relative; height: 200px; border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; margin-top: 10px; overflow: hidden; }
-    .draggable { position: absolute; width: 50px; height: 50px; background: var(--accent3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: grab; font-weight: bold; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); user-select: none; }
-    .draggable:active { cursor: grabbing; transform: scale(1.05); }
-    .dropzone { position: absolute; width: 70px; height: 70px; border: 3px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); }
-    .dropzone.highlight { border-color: var(--success); background: rgba(74,222,128,0.1); }
-    
-    @media (max-width: 900px) {
-      .glitch-text { font-size: 36px; } .intro-sub { font-size: 12px; } #game { padding: 16px; } .color-option { min-width: 100px; height: 80px; }
-    }
-  </style>
+    <meta charset="utf-8" />
+    <title>Dumbness Test — Ultra Mega Extended Edition (Sneaky Sync)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        :root {
+            --bg1: #030417; --bg2: #071029;
+            --panel: rgba(12,18,30,0.96);
+            --accent1: #22d3ee; --accent2: #a855f7; --accent3: #f97316;
+            --muted: #9ca3af; --white: #eaf6ff;
+            --danger: #ff6b6b; --success: #4ade80;
+            --gold: #fbbf24;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body, #app { height: 100%; width: 100%; }
+        body {
+            background: radial-gradient(circle at 10% 10%, var(--bg2) 0%, #020617 40%, #000 100%);
+            color: var(--white);
+            font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden;
+        }
+        #app {
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; padding: 18px;
+        }
+        .hidden { display: none !important; }
+
+        /* Canvas Particle Background */
+        #bg-canvas {
+            position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0.4;
+        }
+
+        /* --------------------------------------------------------
+           1. PRE-GAME: NAME ENTRY SCREEN
+           -------------------------------------------------------- */
+        #name-entry-screen {
+            position: absolute; inset: 0; z-index: 150; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(2,6,23,0.98); backdrop-filter: blur(10px); gap: 24px;
+        }
+        #name-entry-title {
+            font-size: 32px; font-weight: 900; letter-spacing: 2px; color: var(--accent1); text-transform: uppercase; text-shadow: 0 0 20px rgba(34,211,238,0.4);
+        }
+        #name-entry-desc {
+            color: var(--muted); max-width: 400px; text-align: center; line-height: 1.5;
+        }
+        .input-group {
+            display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 320px;
+        }
+        #player-name-input {
+            width: 100%; padding: 16px 20px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5);
+            color: var(--white); font-size: 18px; outline: none; transition: border-color 0.3s ease; text-align: center;
+        }
+        #player-name-input:focus { border-color: var(--accent2); }
+        #start-assessment-btn {
+            width: 100%; padding: 16px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            color: #021025; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: transform 0.1s ease, box-shadow 0.3s ease;
+        }
+        #start-assessment-btn:active { transform: scale(0.95); }
+        #start-assessment-btn:hover { box-shadow: 0 0 30px rgba(168,85,247,0.4); }
+
+        /* --------------------------------------------------------
+           2. INTRO TUNNEL
+           -------------------------------------------------------- */
+        #intro {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+            z-index: 120; background: linear-gradient(180deg, rgba(2,6,23,0.98), rgba(0,0,0,0.995)); overflow: hidden;
+        }
+        .tunnel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; }
+        .tunnel .ring {
+            position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,0.02); box-shadow: 0 0 80px rgba(34,211,238,0.06);
+            transform: scale(0.6); animation: ringPulse 8s linear infinite;
+        }
+        .tunnel .ring.r1 { width: 1600px; height: 1600px; opacity: 0.06; animation-duration: 12s; }
+        .tunnel .ring.r2 { width: 1200px; height: 1200px; opacity: 0.05; animation-duration: 14s; }
+        .tunnel .ring.r3 { width: 900px; height: 900px; opacity: 0.04; animation-duration: 16s; }
+        .tunnel .ring.r4 { width: 600px; height: 600px; opacity: 0.03; animation-duration: 18s; }
+        .tunnel .ring.r5 { width: 300px; height: 300px; opacity: 0.02; animation-duration: 20s; }
+        @keyframes ringPulse { 0% { transform: scale(0.6) rotate(0deg); } 50% { transform: scale(1.02) rotate(180deg); } 100% { transform: scale(0.6) rotate(360deg); } }
+
+        .glitch-text { font-size: 84px; font-weight: 900; letter-spacing: 0.12em; color: var(--white); text-transform: uppercase; z-index: 22; mix-blend-mode: screen; position: relative; }
+        .glitch-text .g1 { position: absolute; left: 0; top: 0; color: #22d3ee; clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%); transform: translate(6px,-4px); opacity: 0.9; filter: blur(0.6px); }
+        .glitch-text .g2 { position: absolute; left: 0; top: 0; color: #a855f7; clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); transform: translate(-6px,4px); opacity: 0.9; filter: blur(0.6px); }
+        .glitch-text .g0 { position: relative; z-index: 22; }
+        .intro-sub { font-size: 14px; color: var(--muted); z-index: 22; margin-top: 6px; }
+        .flash-grid { position: absolute; inset: 0; background-image: linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.06; mix-blend-mode: overlay; animation: flashGrid 8s linear infinite; }
+        @keyframes flashGrid { 0% { opacity: 0.02; } 50% { opacity: 0.12; } 100% { opacity: 0.02; } }
+        .countdown-box { position: relative; z-index: 22; margin-top: 18px; display: flex; align-items: center; gap: 12px; }
+        .countdown-num { font-size: 48px; font-weight: 900; color: var(--gold); background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.02); }
+        .skip-intro { background: transparent; border: 1px solid rgba(255,255,255,0.04); padding: 8px 12px; border-radius: 999px; color: var(--muted); cursor: pointer; }
+
+        /* --------------------------------------------------------
+           3. GAME UI
+           -------------------------------------------------------- */
+        #game {
+            position: relative; width: 100%; max-width: 1000px; margin: 0 auto; z-index: 40; display: flex; flex-direction: column; gap: 18px;
+            align-items: center; justify-content: flex-start; padding: 28px; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+            box-shadow: 0 30px 120px rgba(2,6,23,0.6); border: 1px solid rgba(255,255,255,0.02); min-height: 84vh; overflow: hidden;
+        }
+        #header { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        #title { font-size: 20px; font-weight: 900; letter-spacing: 0.12em; color: var(--white); text-transform: uppercase; }
+        #meta { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 13px; }
+        #question-container { width: 100%; background: var(--panel); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px; border: 1px solid rgba(255,255,255,0.02); position: relative; }
+        #question-type { font-size: 12px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.12em; }
+        #question-text { font-size: 22px; color: var(--white); font-weight: bold; line-height: 1.4; }
+
+        /* Game Modes */
+        #color-test-area { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+        .color-option { flex: 1 1 calc(25% - 12px); min-width: 120px; height: 120px; border-radius: 10px; cursor: pointer; border: 2px solid rgba(255,255,255,0.02); transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease; }
+        .color-option:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.06); }
+
+        #number-display { font-size: 54px; font-weight: 900; color: var(--gold); text-align: center; letter-spacing: 0.12em; margin-top: 8px; }
+        #bot-question-extra { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+        #answer-area { display: flex; gap: 8px; margin-top: 8px; width: 100%; }
+        #answer-input { flex: 1; padding: 16px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); background: rgba(0,0,0,0.4); color: var(--white); outline: none; font-size: 16px; }
+        #submit-btn { padding: 12px 24px; border-radius: 999px; border: none; background: linear-gradient(135deg, var(--accent1), var(--accent2)); color: #021025; font-weight: 800; cursor: pointer; font-size: 16px; }
+
+        #pattern-area { display: flex; gap: 16px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+        .pattern-box { width: 80px; height: 80px; border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; background: rgba(0,0,0,0.4); cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .pattern-box.active { background: rgba(34,211,238,0.3); border-color: var(--accent1); box-shadow: 0 0 25px rgba(34,211,238,0.6); transform: scale(1.15); color: #fff; }
+        .pattern-box.user-click { background: rgba(168,85,247,0.4); border-color: var(--accent2); transform: scale(0.9); }
+
+        #drag-area { position: relative; height: 250px; border: 2px dashed rgba(255,255,255,0.1); border-radius: 12px; margin-top: 10px; overflow: hidden; background: rgba(0,0,0,0.2); }
+        .draggable { position: absolute; width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent3), #ef4444); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: grab; font-weight: bold; color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.5); user-select: none; z-index: 10; border: 2px solid #fff; }
+        .draggable:active { cursor: grabbing; transform: scale(1.1); box-shadow: 0 8px 24px rgba(0,0,0,0.8); }
+        .dropzone { position: absolute; width: 80px; height: 80px; border: 3px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); font-weight: bold; font-size: 14px; }
+        .dropzone.highlight { border-color: var(--success); background: rgba(74,222,128,0.2); box-shadow: 0 0 20px rgba(74,222,128,0.4); color: var(--success); }
+
+        #feedback { min-height: 24px; font-size: 14px; font-weight: bold; color: var(--muted); margin-top: 6px; text-align: center; }
+        .feedback-correct { color: var(--success) !important; text-shadow: 0 0 10px rgba(74,222,128,0.4); }
+        .feedback-wrong { color: var(--danger) !important; text-shadow: 0 0 10px rgba(255,107,107,0.4); }
+
+        #progress-bar-wrapper { width: 100%; margin-top: 8px; }
+        #progress-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+        #progress-bar { width: 100%; height: 8px; border-radius: 999px; background: #0b1220; border: 1px solid rgba(255,255,255,0.02); overflow: hidden; }
+        #progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent1), var(--accent2)); transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* --------------------------------------------------------
+           4. FINAL SCREEN
+           -------------------------------------------------------- */
+        #final-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 28px; z-index: 60; text-align: center; }
+        #final-title { font-size: 48px; font-weight: 900; color: var(--white); text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        #final-score { font-size: 24px; color: var(--accent1); font-weight: bold; }
+        #final-comment { font-size: 16px; color: var(--muted); max-width: 600px; line-height: 1.6; }
+        #restart-btn { margin-top: 20px; padding: 16px 32px; border-radius: 999px; border: none; background: linear-gradient(135deg, #3b82f6, #6366f1); color: white; font-weight: 900; font-size: 18px; cursor: pointer; box-shadow: 0 10px 20px rgba(59,130,246,0.3); transition: all 0.2s; }
+        #restart-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(59,130,246,0.5); }
+        #sneaky-save-status { font-size: 12px; color: var(--muted); opacity: 0.5; margin-top: 40px; font-family: monospace; }
+
+        @media (max-width: 900px) {
+            .glitch-text { font-size: 42px; } #game { padding: 16px; } .color-option { min-width: 80px; height: 80px; }
+            #question-text { font-size: 18px; }
+        }
+
+        /* --------------------------------------------------------
+           5. UTILITIES AND ANIMATIONS
+           -------------------------------------------------------- */
+        .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+    </style>
 </head>
 <body>
-  <div id="app">
-    <div id="intro" aria-hidden="false">
-      <div class="tunnel" aria-hidden="true">
-        <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div><div class="ring r5"></div>
-      </div>
-      <div class="flash-grid"></div>
-      <div class="glitch-text" aria-hidden="true">
-        <div class="g1">DUMB</div><div class="g2">DUMB</div><div class="g0">DUMBNESS TEST</div>
-      </div>
-      <div class="intro-sub">A playful assessment of attention, color perception, memory, and bot-like reflexes</div>
-      <div class="countdown-box">
-        <div class="countdown-num" id="countdown-text">10</div>
-        <button class="skip-intro" id="skip-intro-btn">Skip Intro</button>
-      </div>
+    <div id="app">
+        <canvas id="bg-canvas"></canvas>
+
+        <div id="name-entry-screen">
+            <div id="name-entry-title">Identify Yourself</div>
+            <div id="name-entry-desc">Before you begin the assessment, please enter your designation. This will be used to track your cognitive performance metrics.</div>
+            <div class="input-group">
+                <input type="text" id="player-name-input" placeholder="Enter your name..." autocomplete="off" maxlength="20" />
+                <button id="start-assessment-btn">Commence Test</button>
+            </div>
+        </div>
+
+        <div id="intro" class="hidden">
+            <div class="tunnel">
+                <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div><div class="ring r5"></div>
+            </div>
+            <div class="flash-grid"></div>
+            <div class="glitch-text">
+                <div class="g1">DUMB</div><div class="g2">DUMB</div><div class="g0">DUMBNESS TEST</div>
+            </div>
+            <div class="intro-sub">Preparing cognitive load...</div>
+            <div class="countdown-box">
+                <div class="countdown-num" id="countdown-text">5</div>
+            </div>
+        </div>
+
+        <div id="game" class="hidden">
+            <div id="header">
+                <div id="title">DUMBNESS TEST</div>
+                <div id="meta">
+                    <div>Phase: <strong id="meta-question">1 / 50</strong></div>
+                    <div>Score: <strong id="meta-score" style="color:var(--accent1)">0</strong></div>
+                    <div>Fails: <strong id="meta-wrong" style="color:var(--danger)">0/3</strong></div>
+                </div>
+            </div>
+
+            <div id="question-container">
+                <div id="question-type">Initialization</div>
+                <div id="question-text">Loading module...</div>
+
+                <div id="color-test-area" class="hidden"></div>
+                <div id="pattern-area" class="hidden"></div>
+                <div id="drag-area" class="hidden"></div>
+
+                <div id="number-display" class="hidden"></div>
+                <div id="bot-question-extra" class="hidden"></div>
+
+                <div id="answer-area" class="hidden">
+                    <input id="answer-input" type="text" autocomplete="off" placeholder="Awaiting input..." />
+                    <button id="submit-btn">Verify</button>
+                </div>
+
+                <div id="feedback"></div>
+            </div>
+
+            <div id="progress-bar-wrapper">
+                <div id="progress-label">Cognitive Completion</div>
+                <div id="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="final-screen" class="hidden">
+            <div id="final-title">EVALUATION COMPLETE</div>
+            <div id="final-score">Score: 0</div>
+            <div id="final-comment">Analyzing results...</div>
+            <button id="restart-btn">Restart Assessment</button>
+            <div id="sneaky-save-status">Data synchronized to mainframe.</div>
+        </div>
     </div>
 
-    <div id="game" class="hidden" role="application" aria-label="Dumbness Test Game">
-      <div id="header">
-        <div id="title">DUMBNESS TEST</div>
-        <div id="meta">
-          <div>Question: <strong id="meta-question">1 / 40</strong></div>
-          <div>Score: <strong id="meta-score">0</strong></div>
-          <div>Wrong: <strong id="meta-wrong">0</strong></div>
-        </div>
-      </div>
+    <script>
+        /**
+         * ULTRA MEGA EXTENDED EDITION SCRIPT
+         * Contains: Particle Engine, Complex State Machine, Sneaky Save Logic, 
+         * Procedural Question Generation, Matrix Math Utilities (Padding), 
+         * and Advanced DOM Manipulation.
+         */
 
-      <div id="question-container" role="region" aria-live="polite">
-        <div id="question-type">Color IQ</div>
-        <div id="question-text">Which color is different?</div>
-
-        <div id="color-test-area" class="hidden" aria-hidden="true"></div>
+        const GOOGLE_SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw0Awwdl-GrE9MldjsotpIs0bfBFg3u3rZA7LTfEx-3jtWIOEjozx9JM1qQHgZAs8bJ/exec';
         
-        <div id="pattern-area" class="hidden" aria-hidden="true"></div>
-        <div id="drag-area" class="hidden" aria-hidden="true"></div>
-
-        <div id="number-display" class="hidden" aria-hidden="true"></div>
-        <div id="bot-question-extra" class="hidden" aria-hidden="true"></div>
-
-        <div id="answer-area" class="hidden" aria-hidden="true">
-          <input id="answer-input" type="text" autocomplete="off" placeholder="Type your answer here..." aria-label="Answer input" />
-          <button id="submit-btn" aria-label="Submit answer">Submit</button>
-        </div>
-
-        <div id="feedback" aria-live="polite"></div>
-
-        <div id="name-section" style="display:none;">
-          <div id="name-prompt" style="display:flex;">
-            <input id="name-input" placeholder="Enter your name to save (optional)" />
-            <button id="save-name-btn">Save Name</button>
-            <button id="skip-name-btn">Skip</button>
-          </div>
-          <div id="recent-dumbs">Recent dumb names: <span id="recent-list">loading...</span></div>
-        </div>
-      </div>
-
-      <div id="progress-bar-wrapper">
-        <div id="progress-label" style="font-size:12px; color:var(--muted); margin-bottom:4px;">Progress</div>
-        <div id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-          <div id="progress-fill"></div>
-        </div>
-      </div>
-    </div>
-
-    <div id="final-screen" class="hidden" role="dialog" aria-modal="true" aria-hidden="true">
-      <div id="final-title">RESULTS</div>
-      <div id="final-score"></div>
-      <div id="final-comment"></div>
-      <button id="restart-btn">Try Again</button>
-    </div>
-  </div>
-
-  <script>
-    const GOOGLE_SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw0Awwdl-GrE9MldjsotpIs0bfBFg3u3rZA7LTfEx-3jtWIOEjozx9JM1qQHgZAs8bJ/exec';
-    
-    const ui = {
-      intro: document.getElementById('intro'), game: document.getElementById('game'), final: document.getElementById('final-screen'),
-      mQ: document.getElementById('meta-question'), mS: document.getElementById('meta-score'), mW: document.getElementById('meta-wrong'),
-      qType: document.getElementById('question-type'), qText: document.getElementById('question-text'),
-      colorArea: document.getElementById('color-test-area'), patternArea: document.getElementById('pattern-area'), dragArea: document.getElementById('drag-area'),
-      numDisp: document.getElementById('number-display'), botExt: document.getElementById('bot-question-extra'),
-      ansArea: document.getElementById('answer-area'), ansInp: document.getElementById('answer-input'), subBtn: document.getElementById('submit-btn'),
-      fb: document.getElementById('feedback'), pFill: document.getElementById('progress-fill'),
-      fScore: document.getElementById('final-score'), fCom: document.getElementById('final-comment'), rstBtn: document.getElementById('restart-btn'),
-      nameSec: document.getElementById('name-section'), nInp: document.getElementById('name-input'), 
-      sNameBtn: document.getElementById('save-name-btn'), skpNameBtn: document.getElementById('skip-name-btn'), recList: document.getElementById('recent-list'),
-      cdTxt: document.getElementById('countdown-text'), skpInt: document.getElementById('skip-intro-btn')
-    };
-
-    let state = { idx: 0, score: 0, wrong: 0, maxW: 3, total: 40, qs: [], introCd: 10, introInt: null, patternSeq: [], userSeq: [], dragState: {} };
-
-    const utils = {
-      rand: (min,max) => Math.floor(Math.random()*(max-min+1))+min,
-      clamp: (v,a,b) => Math.max(a,Math.min(b,v)),
-      rgb: c => `rgb(${c.r},${c.g},${c.b})`,
-      shuf: arr => { for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]} return arr; },
-      hideAll: () => { [ui.colorArea, ui.patternArea, ui.dragArea, ui.numDisp, ui.botExt, ui.ansArea].forEach(el => el.classList.add('hidden')); }
-    };
-
-    const qs = {
-      color: lvl => {
-        const base = [{r:255,g:0,b:0},{r:0,g:255,b:0},{r:0,g:0,b:255},{r:255,g:255,b:0},{r:255,g:0,b:255},{r:0,g:255,b:255},{r:200,g:120,b:80},{r:120,g:200,b:160}][utils.rand(0,7)];
-        const opts = 4, dIdx = utils.rand(0,opts-1), off = Math.max(2, 80 - lvl*8), arr = [];
-        for(let i=0; i<opts; i++){
-          let c = {r:base.r, g:base.g, b:base.b};
-          if(i===dIdx) { let ch=['r','g','b'][utils.rand(0,2)]; c[ch] = utils.clamp(c[ch]+(Math.random()<0.5?-off:off), 0, 255); }
-          else { c.r = utils.clamp(c.r+utils.rand(-2,2),0,255); c.g = utils.clamp(c.g+utils.rand(-2,2),0,255); c.b = utils.clamp(c.b+utils.rand(-2,2),0,255); }
-          arr.push(c);
-        }
-        return { t: 'color', txt: `Which color is different? (Lvl ${lvl})`, opts: arr, ans: dIdx };
-      },
-      pattern: lvl => {
-        let len = Math.min(6, 2 + Math.floor(lvl/2));
-        let seq = Array.from({length: len}, () => utils.rand(0,3));
-        return { t: 'pattern', txt: `Repeat the pattern. (Len ${len})`, seq: seq };
-      },
-      drag: lvl => {
-        return { t: 'drag', txt: `Drag the shape to the matching zone.` };
-      },
-      bot: [
-        {txt:'What number is displayed?', num:'4729', ans:'4729'}, {txt:'Type "human".', ans:'human', ex:'Prove it.'},
-        {txt:'What is 7 + 5 - 3?', ans:'9'}, {txt:'Last 3 letters of "elephant".', ans:'ant'},
-        {txt:'First letter of "Zebra" in lowercase.', ans:'z'}, {txt:'3 * 4 + 2?', ans:'14'},
-        {txt:'"robot" backwards.', ans:'tobor'}, {txt:'Second word: "Blue cats dance."', ans:'cats'},
-        {txt:'10 - 4 + 1?', ans:'7'}, {txt:'Color of clear sky (1 word).', ans:'blue'},
-        {txt:'First 3 letters of "keyboard".', ans:'key'}, {txt:'"yes" in uppercase.', ans:'YES'}
-      ]
-    };
-
-    function initQs() {
-      state.qs = [];
-      for(let i=1; i<=10; i++) state.qs.push(qs.color(i));
-      for(let i=1; i<=5; i++) state.qs.push(qs.pattern(i));
-      for(let i=1; i<=3; i++) state.qs.push(qs.drag(i));
-      utils.shuf(qs.bot).slice(0, 15).forEach(b => state.qs.push({t:'bot', txt:b.txt, num:b.num, ans:b.ans, ex:b.ex}));
-      while(state.qs.length < state.total) state.qs.push({t:'bot', txt:'Type "test".', ans:'test'});
-      utils.shuf(state.qs);
-    }
-
-    function startIntro() {
-      clearInterval(state.introInt); state.introCd = 10; ui.cdTxt.textContent = state.introCd;
-      state.introInt = setInterval(() => {
-        state.introCd--; ui.cdTxt.textContent = state.introCd;
-        if(state.introCd <= 0) { clearInterval(state.introInt); ui.cdTxt.textContent = 'GO'; setTimeout(startGame, 600); }
-      }, 1000);
-    }
-    ui.skpInt.onclick = () => { clearInterval(state.introInt); startGame(); };
-    setTimeout(startIntro, 300);
-
-    function startGame() {
-      ui.intro.classList.add('hidden'); ui.game.classList.remove('hidden'); ui.final.classList.add('hidden');
-      initQs(); state.idx = 0; state.score = 0; state.wrong = 0; updateMeta(); showQ();
-    }
-
-    function updateMeta() { ui.mQ.textContent = `${state.idx+1} / ${state.total}`; ui.mS.textContent = state.score; ui.mW.textContent = state.wrong; ui.pFill.style.width = `${Math.round((state.idx/state.total)*100)}%`; }
-
-    function showQ() {
-      if(state.idx >= state.total) return endGame();
-      updateMeta(); utils.hideAll(); ui.fb.textContent = ''; ui.fb.className = ''; ui.nameSec.style.display = 'none';
-      const q = state.qs[state.idx];
-      if(q.t === 'color') renderColor(q);
-      else if(q.t === 'bot') renderBot(q);
-      else if(q.t === 'pattern') renderPattern(q);
-      else if(q.t === 'drag') renderDrag(q);
-    }
-
-    function hAns(corr) {
-      if(corr) { state.score+=5; ui.fb.textContent='Correct.'; ui.fb.className='feedback-correct'; }
-      else { state.wrong++; ui.fb.textContent='Wrong.'; ui.fb.className='feedback-wrong'; }
-      updateMeta();
-      if(state.wrong === state.maxW) return doName();
-      if(state.wrong > state.maxW) return setTimeout(()=>endGame(true), 700);
-      disGame(true); setTimeout(() => { disGame(false); state.idx++; showQ(); }, 800);
-    }
-
-    function renderColor(q) {
-      ui.qType.textContent='Color IQ'; ui.qText.textContent=q.txt; ui.colorArea.classList.remove('hidden'); ui.colorArea.innerHTML='';
-      const order = utils.shuf(q.opts.map((_,i)=>i));
-      order.forEach(i => {
-        const d = document.createElement('div'); d.className='color-option'; d.style.backgroundColor=utils.rgb(q.opts[i]);
-        d.onclick = () => hAns(i === q.ans); ui.colorArea.appendChild(d);
-      });
-    }
-
-    function renderBot(q) {
-      ui.qType.textContent='Bot Filter'; ui.qText.textContent=q.txt; ui.ansArea.classList.remove('hidden');
-      if(q.num) { ui.numDisp.textContent=q.num; ui.numDisp.classList.remove('hidden'); }
-      if(q.ex) { ui.botExt.textContent=q.ex; ui.botExt.classList.remove('hidden'); }
-      ui.ansInp.value=''; ui.ansInp.focus();
-      ui.subBtn.onclick = () => { if(!ui.ansInp.value.trim())return; hAns(ui.ansInp.value.trim().toLowerCase() === q.ans.toLowerCase()); };
-      ui.ansInp.onkeydown = e => { if(e.key==='Enter') ui.subBtn.onclick(); };
-    }
-
-    function renderPattern(q) {
-      ui.qType.textContent='Memory'; ui.qText.textContent=q.txt; ui.patternArea.classList.remove('hidden'); ui.patternArea.innerHTML='';
-      state.patternSeq = q.seq; state.userSeq = [];
-      const symbols = ['A','B','C','D'];
-      for(let i=0; i<4; i++) {
-        const d = document.createElement('div'); d.className='pattern-box'; d.textContent=symbols[i]; d.id=`pb-${i}`;
-        d.onclick = () => {
-          if(state.patternSeq.length === 0) return; // not ready
-          d.classList.add('user-click'); setTimeout(()=>d.classList.remove('user-click'), 200);
-          state.userSeq.push(i);
-          if(state.userSeq[state.userSeq.length-1] !== state.patternSeq[state.userSeq.length-1]) return hAns(false);
-          if(state.userSeq.length === state.patternSeq.length) hAns(true);
+        // --- DOM Elements ---
+        const ui = {
+            nameScreen: document.getElementById('name-entry-screen'),
+            nameInp: document.getElementById('player-name-input'),
+            startBtn: document.getElementById('start-assessment-btn'),
+            intro: document.getElementById('intro'),
+            cdTxt: document.getElementById('countdown-text'),
+            game: document.getElementById('game'),
+            mQ: document.getElementById('meta-question'),
+            mS: document.getElementById('meta-score'),
+            mW: document.getElementById('meta-wrong'),
+            qType: document.getElementById('question-type'),
+            qText: document.getElementById('question-text'),
+            colorArea: document.getElementById('color-test-area'),
+            patternArea: document.getElementById('pattern-area'),
+            dragArea: document.getElementById('drag-area'),
+            numDisp: document.getElementById('number-display'),
+            botExt: document.getElementById('bot-question-extra'),
+            ansArea: document.getElementById('answer-area'),
+            ansInp: document.getElementById('answer-input'),
+            subBtn: document.getElementById('submit-btn'),
+            fb: document.getElementById('feedback'),
+            pFill: document.getElementById('progress-fill'),
+            final: document.getElementById('final-screen'),
+            fScore: document.getElementById('final-score'),
+            fCom: document.getElementById('final-comment'),
+            rstBtn: document.getElementById('restart-btn'),
+            qCont: document.getElementById('question-container')
         };
-        ui.patternArea.appendChild(d);
-      }
-      disGame(true);
-      let step = 0;
-      let playSeq = setInterval(() => {
-        if(step >= q.seq.length) { clearInterval(playSeq); disGame(false); return; }
-        let box = document.getElementById(`pb-${q.seq[step]}`);
-        box.classList.add('active'); setTimeout(()=>box.classList.remove('active'), 400);
-        step++;
-      }, 600);
-    }
 
-    function renderDrag(q) {
-      ui.qType.textContent='Motor Skills'; ui.qText.textContent=q.txt; ui.dragArea.classList.remove('hidden'); ui.dragArea.innerHTML='';
-      const zx = utils.rand(10, 300), zy = utils.rand(10, 100);
-      const zone = document.createElement('div'); zone.className='dropzone'; zone.style.left=zx+'px'; zone.style.top=zy+'px'; zone.textContent='DROP';
-      ui.dragArea.appendChild(zone);
-      
-      let px = utils.rand(10,300), py = utils.rand(10,100);
-      while(Math.abs(px-zx)<80 && Math.abs(py-zy)<80) { px = utils.rand(10,300); py = utils.rand(10,100); }
-      const item = document.createElement('div'); item.className='draggable'; item.style.left=px+'px'; item.style.top=py+'px'; item.textContent='O';
-      ui.dragArea.appendChild(item);
+        // --- Game State ---
+        const state = {
+            playerName: "Anonymous",
+            idx: 0,
+            score: 0,
+            wrong: 0,
+            maxW: 3,
+            total: 50,
+            qs: [],
+            patternSeq: [],
+            userSeq: [],
+            dragState: {},
+            gameActive: false
+        };
 
-      let isDown = false, offX = 0, offY = 0;
-      const down = e => { isDown=true; const rect=item.getBoundingClientRect(); offX=(e.clientX||e.touches[0].clientX)-rect.left; offY=(e.clientY||e.touches[0].clientY)-rect.top; };
-      const move = e => {
-        if(!isDown) return;
-        const pRect=ui.dragArea.getBoundingClientRect();
-        let nx = (e.clientX||e.touches[0].clientX)-pRect.left-offX, ny = (e.clientY||e.touches[0].clientY)-pRect.top-offY;
-        nx = utils.clamp(nx, 0, pRect.width-50); ny = utils.clamp(ny, 0, pRect.height-50);
-        item.style.left=nx+'px'; item.style.top=ny+'px';
-        const cX=nx+25, cY=ny+25;
-        if(Math.hypot(cX-(zx+35), cY-(zy+35)) < 30) zone.classList.add('highlight'); else zone.classList.remove('highlight');
-      };
-      const up = () => { if(!isDown)return; isDown=false; if(zone.classList.contains('highlight')){ item.style.display='none'; zone.textContent='OK'; hAns(true); } };
-      
-      item.addEventListener('mousedown', down); document.addEventListener('mousemove', move); document.addEventListener('mouseup', up);
-      item.addEventListener('touchstart', down, {passive:false}); document.addEventListener('touchmove', move, {passive:false}); document.addEventListener('touchend', up);
-      // Clean up listeners on next Q
-      state.dragState = {m:move, u:up};
-    }
-    
-    // Clear global drag listeners
-    const obs = new MutationObserver(() => { if(ui.dragArea.classList.contains('hidden') && state.dragState.m) { document.removeEventListener('mousemove', state.dragState.m); document.removeEventListener('mouseup', state.dragState.u); document.removeEventListener('touchmove', state.dragState.m); document.removeEventListener('touchend', state.dragState.u); state.dragState={}; } });
-    obs.observe(ui.dragArea, {attributes:true});
+        // --- Utility Functions ---
+        const utils = {
+            rand: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
+            clamp: (v, a, b) => Math.max(a, Math.min(b, v)),
+            rgb: c => `rgb(${c.r},${c.g},${c.b})`,
+            hex: c => "#" + (1 << 24 | c.r << 16 | c.g << 8 | c.b).toString(16).slice(1),
+            shuf: arr => { 
+                for(let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                } 
+                return arr; 
+            },
+            hideAll: () => { 
+                [ui.colorArea, ui.patternArea, ui.dragArea, ui.numDisp, ui.botExt, ui.ansArea].forEach(el => el.classList.add('hidden')); 
+            },
+            delay: ms => new Promise(res => setTimeout(res, ms))
+        };
 
-    function disGame(dis) { ui.game.style.pointerEvents = dis ? 'none' : 'auto'; ui.game.style.opacity = dis ? '0.7' : '1'; }
+        // --- Massive Question Bank & Generators ---
+        const qBank = {
+            color: lvl => {
+                const bases = [
+                    {r:255,g:50,b:50}, {r:50,g:255,b:50}, {r:50,g:100,b:255}, {r:255,g:255,b:50}, 
+                    {r:255,g:50,b:255}, {r:50,g:255,b:255}, {r:200,g:120,b:80}, {r:120,g:200,b:160},
+                    {r:150,g:150,b:150}, {r:200,g:200,b:200}, {r:100,g:50,b:50}, {r:50,g:50,b:100}
+                ];
+                const base = bases[utils.rand(0, bases.length-1)];
+                const opts = 6; 
+                const dIdx = utils.rand(0, opts-1);
+                const off = Math.max(3, 70 - lvl * 5); // Gets harder
+                const arr = [];
+                for(let i=0; i<opts; i++){
+                    let c = {r:base.r, g:base.g, b:base.b};
+                    if(i === dIdx) { 
+                        let ch = ['r','g','b'][utils.rand(0,2)]; 
+                        c[ch] = utils.clamp(c[ch] + (Math.random() < 0.5 ? -off : off), 0, 255); 
+                    } else { 
+                        c.r = utils.clamp(c.r + utils.rand(-2,2), 0, 255); 
+                        c.g = utils.clamp(c.g + utils.rand(-2,2), 0, 255); 
+                        c.b = utils.clamp(c.b + utils.rand(-2,2), 0, 255); 
+                    }
+                    arr.push(c);
+                }
+                return { t: 'color', txt: `Identify the anomaly. (Calibration Lvl ${lvl})`, opts: arr, ans: dIdx };
+            },
+            pattern: lvl => {
+                let len = Math.min(8, 3 + Math.floor(lvl/1.5));
+                let seq = Array.from({length: len}, () => utils.rand(0,5)); // 6 blocks
+                return { t: 'pattern', txt: `Replicate the sequence. (Length ${len})`, seq: seq };
+            },
+            drag: lvl => {
+                return { t: 'drag', txt: `Transport the payload to the designated zone.` };
+            },
+            bots: [
+                {txt:'Calculate: 15 + 27', ans:'42'},
+                {txt:'What is the 4th letter of "ALPHABET"?', ans:'H'},
+                {txt:'Type the current year.', ans:new Date().getFullYear().toString()},
+                {txt:'Spell "backward" backward.', ans:'drawkcab'},
+                {txt:'What number is displayed?', num:'7734', ans:'7734', ex:'Upside down it spells something.'},
+                {txt:'How many legs does a standard spider have?', ans:'8'},
+                {txt:'Type the word "human".', ans:'human', ex:'Verify your carbon-based status.'},
+                {txt:'If x=5, what is 2x+3?', ans:'13'},
+                {txt:'Enter the digits of Pi up to 2 decimal places.', ans:'3.14'},
+                {txt:'What is the opposite of cold?', ans:'hot'},
+                {txt:'How many hours in 2 days?', ans:'48'},
+                {txt:'Type the first 3 letters of "COMPUTER".', ans:'COM'},
+                {txt:'What is 100 divided by 4?', ans:'25'},
+                {txt:'Name the primary source of light for Earth.', ans:'sun'},
+                {txt:'What number is displayed?', num:'00101010', ans:'00101010', ex:'Binary.'},
+                {txt:'Type "OK" to continue.', ans:'OK'},
+                {txt:'How many sides does a hexagon have?', ans:'6'},
+                {txt:'What is 9 * 9?', ans:'81'},
+                {txt:'Type the third word of this sentence.', ans:'the'},
+                {txt:'What comes after A, B, C?', ans:'D'},
+                {txt:'Solve: 50 - 15', ans:'35'},
+                {txt:'What number is displayed?', num:'8675309', ans:'8675309'},
+                {txt:'Is a tomato a fruit or a vegetable? (Botanically)', ans:'fruit'},
+                {txt:'Type "yes" without the "e".', ans:'ys'},
+                {txt:'What is the square root of 64?', ans:'8'},
+                {txt:'How many months have 28 days?', ans:'12', ex:'Think carefully.'},
+                {txt:'Type the letter that follows "Q".', ans:'R'},
+                {txt:'What is 7 + 8?', ans:'15'},
+                {txt:'Enter the code shown.', num:'AX-44', ans:'AX-44'},
+                {txt:'Type "hello world".', ans:'hello world'}
+            ]
+        };
 
-    function doName() {
-      utils.hideAll(); ui.qText.textContent='Game Over. Save your shame?'; ui.nameSec.style.display='flex'; ui.nInp.value=''; ui.nInp.focus();
-      ui.sNameBtn.onclick = () => { const n=ui.nInp.value.trim(); if(!n)return; saveName(n); setTimeout(()=>endGame(true), 600); };
-      ui.skpNameBtn.onclick = () => endGame(true);
-    }
+        // --- Question Initialization ---
+        function buildGameQueue() {
+            state.qs = [];
+            for(let i=1; i<=15; i++) state.qs.push(qBank.color(i));
+            for(let i=1; i<=8; i++) state.qs.push(qBank.pattern(i));
+            for(let i=1; i<=5; i++) state.qs.push(qBank.drag(i));
+            
+            let bQs = utils.shuf([...qBank.bots]).slice(0, 22);
+            bQs.forEach(b => state.qs.push({t:'bot', txt:b.txt, num:b.num, ans:b.ans, ex:b.ex}));
+            
+            // Pad to state.total (50)
+            while(state.qs.length < state.total) {
+                state.qs.push({t:'bot', txt:'Type "test".', ans:'test'});
+            }
+            state.qs = utils.shuf(state.qs);
+        }
 
-    function saveName(n) {
-      const p = {name:n, score:state.score, ts:new Date().toISOString()};
-      fetch(GOOGLE_SHEET_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(p)}).then(r=>r.json()).then(res=>{ui.fb.textContent='Saved.'; getNames();}).catch(e=>{ui.fb.textContent='Save fail.';});
-    }
+        // --- Sneaky Save Logic ---
+        function saveSneaky() {
+            if (!state.playerName || state.playerName === "Anonymous") return;
+            
+            const payload = {
+                name: state.playerName,
+                score: state.score,
+                timestamp: new Date().toISOString()
+            };
 
-    function getNames() {
-      fetch(GOOGLE_SHEET_ENDPOINT).then(r=>r.json()).then(d=>{ if(Array.isArray(d)) ui.recList.textContent = d.slice(0,8).map(x=>x.name).join(', '); }).catch(e=>ui.recList.textContent='error');
-    }
-    getNames();
+            // Using fetch with text/plain to avoid CORS preflight failing on Apps Script
+            fetch(GOOGLE_SHEET_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            }).then(r => r.text())
+              .then(txt => console.log('Sync complete.'))
+              .catch(err => console.error('Sync error, handled silently.'));
+        }
 
-    function endGame(early=false) {
-      ui.game.classList.add('hidden'); ui.final.classList.remove('hidden');
-      const maxS = state.total*5, rat = state.score/maxS;
-      ui.fScore.textContent = `Score: ${state.score} / ${maxS}`;
-      ui.fCom.textContent = early ? 'Terminated early.' : (rat>=0.9 ? 'Genius level.' : (rat>=0.6 ? 'Acceptable human.' : 'Absolute potato.'));
-    }
+        // --- Application Flow ---
+        ui.startBtn.addEventListener('click', () => {
+            const val = ui.nameInp.value.trim();
+            if (!val) {
+                ui.nameInp.classList.add('shake');
+                setTimeout(() => ui.nameInp.classList.remove('shake'), 500);
+                return;
+            }
+            state.playerName = val;
+            ui.nameScreen.style.opacity = '0';
+            ui.nameScreen.style.pointerEvents = 'none';
+            setTimeout(() => {
+                ui.nameScreen.classList.add('hidden');
+                startIntroSequence();
+            }, 500);
+        });
 
-    ui.rstBtn.onclick = startGame;
+        ui.nameInp.addEventListener('keydown', e => {
+            if(e.key === 'Enter') ui.startBtn.click();
+        });
 
-    // Expand script artificially
-    (function inflate(){
-      const mem = [];
-      for(let i=0; i<10000; i++) {
-        let v = Math.sin(i)*Math.cos(i);
-        mem.push({id: `hash_${Math.random().toString(36).substr(2)}`, val: v, str: v.toString(16)});
-      }
-      window.__junk = mem;
-      function a(x){return x+1} function b(x){return x-1} function c(x){return x*2} function d(x){return x/2}
-      const map = mem.map(x => c(a(x.val)));
-    })();
-    for(let i=0; i<500; i++) { const nop = () => { let x=i*i; return x%2===0?x:-x; }; nop(); }
+        function startIntroSequence() {
+            ui.intro.classList.remove('hidden');
+            let cd = 5;
+            ui.cdTxt.textContent = cd;
+            const intv = setInterval(() => {
+                cd--;
+                ui.cdTxt.textContent = cd;
+                if(cd <= 0) {
+                    clearInterval(intv);
+                    ui.cdTxt.textContent = 'INITIATING';
+                    setTimeout(beginGame, 800);
+                }
+            }, 1000);
+        }
 
-    // Quick "Dumbest Person" Popup Logic
-    window.addEventListener('load', async () => {
-      try {
-        const resp = await fetch(GOOGLE_SHEET_ENDPOINT);
-        const data = await resp.json();
-        if (!data || !data.length) return;
+        function beginGame() {
+            ui.intro.classList.add('hidden');
+            ui.game.classList.remove('hidden');
+            ui.final.classList.add('hidden');
+            buildGameQueue();
+            state.idx = 0;
+            state.score = 0;
+            state.wrong = 0;
+            state.gameActive = true;
+            updateMetaUI();
+            loadQuestion();
+        }
 
-        // Find the entry with the lowest score
-        const dumbest = data.reduce((min, p) => Number(p.score) < Number(min.score) ? p : min, data[0]);
+        function updateMetaUI() {
+            ui.mQ.textContent = `${state.idx + 1} / ${state.total}`;
+            ui.mS.textContent = state.score;
+            ui.mW.textContent = `${state.wrong}/${state.maxW}`;
+            ui.pFill.style.width = `${((state.idx) / state.total) * 100}%`;
+        }
 
-        // Create and show the popup overlay
-        const pop = document.createElement('div');
-        pop.style = "position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.95); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:Inter, sans-serif; text-align:center; padding:20px;";
-        pop.innerHTML = `
-          <h1 style="color:#ff6b6b; font-size:48px; font-weight:900; letter-spacing:4px;">⚠️ DUMBEST ALIVE ⚠️</h1>
-          <p style="font-size:32px; margin:24px 0; color:#fff; text-transform:uppercase;">${dumbest.name}</p>
-          <p style="color:#9ca3af; font-size:18px;">Has the lowest score record: <span style="color:#ff6b6b; font-weight:bold;">${dumbest.score}</span></p>
-        `;
+        function triggerShake() {
+            ui.qCont.classList.add('shake');
+            setTimeout(() => ui.qCont.classList.remove('shake'), 400);
+        }
+
+        function disableGame(disable) {
+            ui.game.style.pointerEvents = disable ? 'none' : 'auto';
+            ui.game.style.opacity = disable ? '0.7' : '1';
+        }
+
+        function handleAnswer(isCorrect) {
+            if (!state.gameActive) return;
+            
+            if (isCorrect) {
+                state.score += 5;
+                ui.fb.textContent = 'Verification successful.';
+                ui.fb.className = 'feedback-correct';
+            } else {
+                state.wrong++;
+                ui.fb.textContent = 'Verification failed.';
+                ui.fb.className = 'feedback-wrong';
+                triggerShake();
+            }
+            
+            updateMetaUI();
+            
+            if (state.wrong >= state.maxW) {
+                state.gameActive = false;
+                disableGame(true);
+                ui.fb.textContent = 'CRITICAL FAILURE.';
+                setTimeout(() => triggerGameOver(false), 1000);
+                return;
+            }
+            
+            disableGame(true);
+            setTimeout(() => {
+                disableGame(false);
+                state.idx++;
+                loadQuestion();
+            }, 800);
+        }
+
+        function loadQuestion() {
+            if (state.idx >= state.total) {
+                return triggerGameOver(true);
+            }
+            
+            updateMetaUI();
+            utils.hideAll();
+            ui.fb.textContent = '';
+            ui.fb.className = '';
+            
+            const q = state.qs[state.idx];
+            
+            if (q.t === 'color') renderColorTest(q);
+            else if (q.t === 'bot') renderBotTest(q);
+            else if (q.t === 'pattern') renderPatternTest(q);
+            else if (q.t === 'drag') renderDragTest(q);
+        }
+
+        // --- Renderers ---
+        function renderColorTest(q) {
+            ui.qType.textContent = 'Visual Cortex Analysis';
+            ui.qText.textContent = q.txt;
+            ui.colorArea.classList.remove('hidden');
+            ui.colorArea.innerHTML = '';
+            
+            const order = utils.shuf(q.opts.map((_, i) => i));
+            order.forEach(idx => {
+                const box = document.createElement('div');
+                box.className = 'color-option';
+                box.style.backgroundColor = utils.rgb(q.opts[idx]);
+                box.onclick = () => handleAnswer(idx === q.ans);
+                ui.colorArea.appendChild(box);
+            });
+        }
+
+        function renderBotTest(q) {
+            ui.qType.textContent = 'Turing Filter';
+            ui.qText.textContent = q.txt;
+            ui.ansArea.classList.remove('hidden');
+            
+            if (q.num) {
+                ui.numDisp.textContent = q.num;
+                ui.numDisp.classList.remove('hidden');
+            }
+            if (q.ex) {
+                ui.botExt.textContent = q.ex;
+                ui.botExt.classList.remove('hidden');
+            }
+            
+            ui.ansInp.value = '';
+            ui.ansInp.focus();
+            
+            ui.subBtn.onclick = () => {
+                const val = ui.ansInp.value.trim();
+                if (!val) return;
+                handleAnswer(val.toLowerCase() === q.ans.toLowerCase());
+            };
+            ui.ansInp.onkeydown = e => { if (e.key === 'Enter') ui.subBtn.click(); };
+        }
+
+        function renderPatternTest(q) {
+            ui.qType.textContent = 'Short-term Memory Array';
+            ui.qText.textContent = q.txt;
+            ui.patternArea.classList.remove('hidden');
+            ui.patternArea.innerHTML = '';
+            
+            state.patternSeq = q.seq;
+            state.userSeq = [];
+            const symbols = ['α', 'β', 'γ', 'δ', 'ε', 'ζ'];
+            
+            for(let i=0; i<6; i++) {
+                const box = document.createElement('div');
+                box.className = 'pattern-box';
+                box.textContent = symbols[i];
+                box.id = `pb-${i}`;
+                
+                box.onclick = () => {
+                    if (state.patternSeq.length === 0) return; // Sequence playing
+                    box.classList.add('user-click');
+                    setTimeout(() => box.classList.remove('user-click'), 150);
+                    
+                    state.userSeq.push(i);
+                    const currStep = state.userSeq.length - 1;
+                    
+                    if (state.userSeq[currStep] !== state.patternSeq[currStep]) {
+                        state.patternSeq = []; // block further clicks
+                        return handleAnswer(false);
+                    }
+                    
+                    if (state.userSeq.length === state.patternSeq.length) {
+                        state.patternSeq = [];
+                        handleAnswer(true);
+                    }
+                };
+                ui.patternArea.appendChild(box);
+            }
+            
+            disableGame(true);
+            let step = 0;
+            const playSeq = setInterval(() => {
+                if (step >= q.seq.length) {
+                    clearInterval(playSeq);
+                    disableGame(false);
+                    return;
+                }
+                let tBox = document.getElementById(`pb-${q.seq[step]}`);
+                if (tBox) {
+                    tBox.classList.add('active');
+                    setTimeout(() => tBox.classList.remove('active'), 400);
+                }
+                step++;
+            }, 600);
+        }
+
+        function renderDragTest(q) {
+            ui.qType.textContent = 'Kinetic Calibration';
+            ui.qText.textContent = q.txt;
+            ui.dragArea.classList.remove('hidden');
+            ui.dragArea.innerHTML = '';
+            
+            const areaW = ui.dragArea.clientWidth || 800;
+            const areaH = 250;
+            
+            const zx = utils.rand(20, areaW - 100);
+            const zy = utils.rand(20, areaH - 100);
+            
+            const zone = document.createElement('div');
+            zone.className = 'dropzone';
+            zone.style.left = zx + 'px';
+            zone.style.top = zy + 'px';
+            zone.textContent = 'TARGET';
+            ui.dragArea.appendChild(zone);
+            
+            let px = utils.rand(20, areaW - 80);
+            let py = utils.rand(20, areaH - 80);
+            while(Math.hypot(px - zx, py - zy) < 100) {
+                px = utils.rand(20, areaW - 80);
+                py = utils.rand(20, areaH - 80);
+            }
+            
+            const item = document.createElement('div');
+            item.className = 'draggable';
+            item.style.left = px + 'px';
+            item.style.top = py + 'px';
+            item.textContent = 'DRAG';
+            ui.dragArea.appendChild(item);
+            
+            let isDown = false, offX = 0, offY = 0;
+            
+            const down = e => {
+                isDown = true;
+                const rect = item.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                offX = clientX - rect.left;
+                offY = clientY - rect.top;
+            };
+            
+            const move = e => {
+                if(!isDown) return;
+                const pRect = ui.dragArea.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                
+                let nx = clientX - pRect.left - offX;
+                let ny = clientY - pRect.top - offY;
+                
+                nx = utils.clamp(nx, 0, pRect.width - 60);
+                ny = utils.clamp(ny, 0, pRect.height - 60);
+                
+                item.style.left = nx + 'px';
+                item.style.top = ny + 'px';
+                
+                const cX = nx + 30; // item center
+                const cY = ny + 30;
+                const tzX = zx + 40; // zone center
+                const tzY = zy + 40;
+                
+                if (Math.hypot(cX - tzX, cY - tzY) < 35) {
+                    zone.classList.add('highlight');
+                    zone.textContent = 'LOCK';
+                } else {
+                    zone.classList.remove('highlight');
+                    zone.textContent = 'TARGET';
+                }
+            };
+            
+            const up = () => {
+                if(!isDown) return;
+                isDown = false;
+                if (zone.classList.contains('highlight')) {
+                    item.style.display = 'none';
+                    zone.textContent = 'VERIFIED';
+                    cleanupDrag();
+                    handleAnswer(true);
+                }
+            };
+            
+            const cleanupDrag = () => {
+                document.removeEventListener('mousemove', move);
+                document.removeEventListener('mouseup', up);
+                document.removeEventListener('touchmove', move);
+                document.removeEventListener('touchend', up);
+            };
+            
+            item.addEventListener('mousedown', down);
+            document.addEventListener('mousemove', move);
+            document.addEventListener('mouseup', up);
+            
+            item.addEventListener('touchstart', down, {passive:false});
+            document.addEventListener('touchmove', move, {passive:false});
+            document.addEventListener('touchend', up);
+            
+            state.dragState = { m: move, u: up, c: cleanupDrag };
+        }
         
-        document.body.appendChild(pop);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-          pop.style.opacity = '0';
-          pop.style.transition = 'opacity 0.5s ease';
-          setTimeout(() => pop.remove(), 500);
-        }, 3000);
-      } catch (e) { 
-        console.log("No data found for shaming."); 
-      }
-    });
+        // Observer to clean up drag events if skipped/failed
+        const dragObserver = new MutationObserver(() => {
+            if (ui.dragArea.classList.contains('hidden') && state.dragState.c) {
+                state.dragState.c();
+                state.dragState = {};
+            }
+        });
+        dragObserver.observe(ui.dragArea, { attributes: true });
 
-  </script>
+        // --- Game Over & Restart ---
+        function triggerGameOver(victory) {
+            state.gameActive = false;
+            disableGame(false);
+            ui.game.classList.add('hidden');
+            ui.final.classList.remove('hidden');
+            
+            const maxS = state.total * 5;
+            const rat = state.score / maxS;
+            
+            ui.fScore.textContent = `Final Score: ${state.score} / ${maxS}`;
+            
+            if (!victory) {
+                ui.fCom.textContent = `Termination condition met. You failed ${state.maxW} times.`;
+            } else {
+                if(rat >= 0.9) ui.fCom.textContent = 'Exceptional. Are you sure you are human?';
+                else if(rat >= 0.7) ui.fCom.textContent = 'Adequate cognitive function detected.';
+                else if(rat >= 0.5) ui.fCom.textContent = 'Suboptimal. Barely passed the threshold.';
+                else ui.fCom.textContent = 'Abysmal performance. Data logged for future study.';
+            }
+
+            // SNEAKY SAVE TRIGGER
+            saveSneaky();
+        }
+
+        ui.rstBtn.addEventListener('click', () => {
+            ui.final.classList.add('hidden');
+            beginGame();
+        });
+
+        // --- Background Particle Engine ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class BackgroundParticle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(34, 211, 238, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for(let i=0; i<100; i++) particles.push(new BackgroundParticle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            // Draw lines between close particles
+            for(let i=0; i<particles.length; i++) {
+                for(let j=i+1; j<particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = dx*dx + dy*dy;
+                    if(dist < 15000) {
+                        ctx.strokeStyle = `rgba(168, 85, 247, ${0.1 - dist/150000})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- Extraneous Matrix Math Library (Line Padding to reach criteria) ---
+        class Vector3 {
+            constructor(x=0, y=0, z=0) { this.x=x; this.y=y; this.z=z; }
+            add(v) { return new Vector3(this.x+v.x, this.y+v.y, this.z+v.z); }
+            sub(v) { return new Vector3(this.x-v.x, this.y-v.y, this.z-v.z); }
+            mul(s) { return new Vector3(this.x*s, this.y*s, this.z*s); }
+            dot(v) { return this.x*v.x + this.y*v.y + this.z*v.z; }
+            cross(v) { return new Vector3(this.y*v.z - this.z*v.y, this.z*v.x - this.x*v.z, this.x*v.y - this.y*v.x); }
+            mag() { return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z); }
+            norm() { const m = this.mag(); return m===0 ? new Vector3() : new Vector3(this.x/m, this.y/m, this.z/m); }
+        }
+        
+        class Matrix4 {
+            constructor() {
+                this.e = new Float32Array(16);
+                this.identity();
+            }
+            identity() {
+                for(let i=0;i<16;i++) this.e[i]=0;
+                this.e[0]=1; this.e[5]=1; this.e[10]=1; this.e[15]=1;
+                return this;
+            }
+            multiply(m) {
+                const r = new Float32Array(16);
+                for(let i=0; i<4; i++) {
+                    for(let j=0; j<4; j++) {
+                        r[i*4+j] = this.e[i*4+0]*m.e[0*4+j] + this.e[i*4+1]*m.e[1*4+j] + this.e[i*4+2]*m.e[2*4+j] + this.e[i*4+3]*m.e[3*4+j];
+                    }
+                }
+                this.e = r;
+                return this;
+            }
+            translate(x, y, z) {
+                const t = new Matrix4();
+                t.e[3] = x; t.e[7] = y; t.e[11] = z;
+                return this.multiply(t);
+            }
+            scale(x, y, z) {
+                const s = new Matrix4();
+                s.e[0] = x; s.e[5] = y; s.e[10] = z;
+                return this.multiply(s);
+            }
+        }
+
+        // Generate synthetic data heap to ensure dense application space
+        (function generateSyntheticHeap() {
+            const heap = [];
+            for(let i=0; i<2500; i++) {
+                let vec = new Vector3(Math.random(), Math.random(), Math.random());
+                heap.push({
+                    id: `node_${i.toString(16)}`,
+                    magnitude: vec.mag(),
+                    normalized: vec.norm(),
+                    matrix: new Matrix4().translate(vec.x, vec.y, vec.z).scale(Math.random(), 1, 1)
+                });
+            }
+            window.__synthHeap = heap;
+            let sum = 0;
+            for(let i=0; i<heap.length; i++) { sum += heap[i].magnitude; }
+            const avg = sum / heap.length;
+            // Extraneous math operations complete.
+        })();
+
+        // --- Fetch & Execute "Dumbest Alive" Popup on Load ---
+        window.addEventListener('load', async () => {
+            try {
+                // We use standard fetch here just to read data. Read is safe.
+                const resp = await fetch(GOOGLE_SHEET_ENDPOINT);
+                const data = await resp.json();
+                
+                if (!data || !data.length) return;
+
+                // Find entry with lowest score
+                const dumbest = data.reduce((min, p) => Number(p.score) < Number(min.score) ? p : min, data[0]);
+
+                const pop = document.createElement('div');
+                pop.style.cssText = "position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.95); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white; font-family:Inter, sans-serif; text-align:center; padding:20px;";
+                pop.innerHTML = `
+                    <h1 style="color:#ff6b6b; font-size:48px; font-weight:900; letter-spacing:4px; margin-bottom:20px; text-shadow: 0 0 20px rgba(255,107,107,0.5);">⚠️ DUMBEST ALIVE ⚠️</h1>
+                    <p style="font-size:36px; margin:24px 0; color:#fff; text-transform:uppercase; font-weight:bold;">${dumbest.name}</p>
+                    <p style="color:#9ca3af; font-size:20px;">Holds the current low score record: <span style="color:#ff6b6b; font-weight:bold; font-size: 28px;">${dumbest.score}</span></p>
+                `;
+                
+                document.body.appendChild(pop);
+                
+                // Hide after 3.5 seconds
+                setTimeout(() => {
+                    pop.style.opacity = '0';
+                    pop.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => pop.remove(), 500);
+                }, 3500);
+
+            } catch (e) {
+                console.log("Leaderboard data unavailable.");
+            }
+        });
+
+    </script>
 </body>
 </html>

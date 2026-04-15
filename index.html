@@ -345,6 +345,36 @@
             drag: lvl => {
                 return { t: 'drag', txt: `Transport the payload to the designated zone.` };
             },
+            // --- PASTE HERE ---
+            clickSpeed: () => {
+                let clicks = 0; const target = 50; const duration = 5; 
+                return {
+                    t: 'custom', 
+                    txt: `CORE OVERLOAD: Click the button ${target} times in ${duration} seconds!`,
+                    render: () => {
+                        utils.hideAll();
+                        ui.ansArea.classList.remove('hidden');
+                        ui.ansInp.classList.add('hidden'); 
+                        ui.subBtn.textContent = `CLICKS: 0`;
+                        const endTime = Date.now() + (duration * 1000);
+                        const intv = setInterval(() => {
+                            const remaining = ((endTime - Date.now()) / 1000).toFixed(1);
+                            ui.qType.textContent = `TIME REMAINING: ${remaining}s`;
+                            if (remaining <= 0) {
+                                clearInterval(intv);
+                                ui.subBtn.onclick = null;
+                                ui.ansInp.classList.remove('hidden'); 
+                                handleAnswer(clicks >= target);
+                            }
+                        }, 100);
+                        ui.subBtn.onclick = () => {
+                            clicks++;
+                            ui.subBtn.textContent = `CLICKS: ${clicks}`;
+                            ui.subBtn.style.transform = `scale(${1 + (clicks/100)})`;
+                        };
+                    }
+                };
+            },
             bots: [
                 {txt:'Calculate: 15 + 27', ans:'42'},
                 {txt:'What is the 4th letter of "ALPHABET"?', ans:'H'},
@@ -438,22 +468,23 @@
                 {txt:'Type "hello world".', ans:'hello world'}
             ]
         };
-
-        // --- Question Initialization ---
-        function buildGameQueue() {
+       function buildGameQueue() {
             state.qs = [];
-            for(let i=1; i<=15; i++) state.qs.push(qBank.color(i));
-            for(let i=1; i<=8; i++) state.qs.push(qBank.pattern(i));
-            for(let i=1; i<=5; i++) state.qs.push(qBank.drag(i));
+            
+            // Force the 3 Click-Speed traps to be the very first questions
+            for(let i=0; i<3; i++) state.qs.push(qBank.clickSpeed());
+
+            let pool = [];
+            for(let i=1; i<=15; i++) pool.push(qBank.color(i));
+            for(let i=1; i<=8; i++) pool.push(qBank.pattern(i));
+            for(let i=1; i<=5; i++) pool.push(qBank.drag(i));
             
             let bQs = utils.shuf([...qBank.bots]).slice(0, 22);
-            bQs.forEach(b => state.qs.push({t:'bot', txt:b.txt, num:b.num, ans:b.ans, ex:b.ex}));
+            bQs.forEach(b => pool.push({t:'bot', txt:b.txt, num:b.num, ans:b.ans, ex:b.ex}));
             
-            // Pad to state.total (50)
-            while(state.qs.length < state.total) {
-                state.qs.push({t:'bot', txt:'Type "test".', ans:'test'});
-            }
-            state.qs = utils.shuf(state.qs);
+            utils.shuf(pool);
+            state.qs = state.qs.concat(pool);
+            state.total = state.qs.length;
         }
 
         // --- Sneaky Save Logic ---
@@ -574,18 +605,23 @@
             }, 800);
         }
 
-        function loadQuestion() {
-            if (state.idx >= state.total) {
-                return triggerGameOver(true);
-            }
+                function loadQuestion() {
+            // 1. Check if game is over
+            if (state.idx >= state.total) return triggerGameOver(true);
             
-            updateMetaUI();
-            utils.hideAll();
-            ui.fb.textContent = '';
-            ui.fb.className = '';
-            
+            // 2. Define q ONCE at the start
             const q = state.qs[state.idx];
             
+            // 3. Trigger Custom Modes (Click-Trap)
+            if (q.render) return q.render(); 
+        
+            // 4. Standard UI Reset
+            updateMetaUI(); 
+            utils.hideAll(); 
+            ui.fb.textContent = ''; 
+            ui.fb.className = '';
+            
+            // 5. Load Standard Modes
             if (q.t === 'color') renderColorTest(q);
             else if (q.t === 'bot') renderBotTest(q);
             else if (q.t === 'pattern') renderPatternTest(q);
